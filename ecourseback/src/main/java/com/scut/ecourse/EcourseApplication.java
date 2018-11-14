@@ -16,11 +16,12 @@ public class EcourseApplication {
         SpringApplication.run(EcourseApplication.class, args);
     }
 
-    private CorsConfiguration buildConfig(){
+    /*private CorsConfiguration buildConfig(){
         CorsConfiguration corsConfiguration=new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin("http://localhost:8080");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
         return corsConfiguration;
     }
 
@@ -29,5 +30,5 @@ public class EcourseApplication {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
-    }
+    }*/
 }

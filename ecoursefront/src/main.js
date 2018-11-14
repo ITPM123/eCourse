@@ -5,12 +5,13 @@ import Antd from 'ant-design-vue'
 import VueRouter from 'vue-router'
 import 'ant-design-vue/dist/antd.css'
 import routes from './routes'
-
-//Vue.component(Layout.name,Layout)
+import axios from"axios"
 Vue.config.productionTip = false
 
 Vue.use(Antd)
 Vue.use(VueRouter)
+
+axios.defaults.baseURL="/api"
 const router=new VueRouter({
     routes
 })
