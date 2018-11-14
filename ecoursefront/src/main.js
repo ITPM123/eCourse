@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Antd from 'ant-design-vue'
+//import Layout from 'ant-design-vue/lib/layout'
 import VueRouter from 'vue-router'
 import 'ant-design-vue/dist/antd.css'
 import routes from './routes'
+
+//Vue.component(Layout.name,Layout)
 Vue.config.productionTip = false
 
 Vue.use(Antd)
