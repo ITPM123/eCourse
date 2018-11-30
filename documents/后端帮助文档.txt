@@ -1,0 +1,6 @@
+1.第一次运行时，需先在mysql中建一个名为"ecourse"的数据库
+2.将application.yml里的username、password改为自己电脑的mysql对应的username、password
+3.将ddl-auto的值改为create//在本地的ecourse中建表
+4.将后端项目跑起来
+5.此时ecourse中应该已经把空表都建好了
+6.将ddl-auto的值改为update
