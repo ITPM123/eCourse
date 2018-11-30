@@ -9,30 +9,40 @@
 </template>
 
 <script>
-    import * as url from "../api/url.js"
-    import Axios from 'axios'
+    import axios from 'axios'
+
     export default {
-        name:"Login",
-        data:function(){
+        name: "Login",
+        data: function () {
             return {
-                username:'',
+                username: '',
             }
         },
-        methods:{
-            handleSubmit:function () {
-
-               Axios.post(url.baseUrl+"/login",{
-                   username:this.username,
-                   password:"sss"
-               },).then((res)=>{
-                   this.$router.push({
-                       path:"/hello"
-                   })
-
-               })
-
-
+        methods: {
+            handleSubmit: function () {
+                axios({
+                    method: 'post',
+                    url: '/login',
+                    data: {
+                        username: 'xxx',
+                        password: 'ccc'
+                    }
+                }).then(res=>{
+                    this.$router.push({
+                        path:'/hello'
+                    })
+                })
+                axios({
+                    methods: "get",
+                    url: "/hello",
+                    headers: {
+                        "Access-Token": "5555"
+                    }
+                }).then((res) => {
+                    console.log("hello:" + res)
+                })
             }
+
         },
     }
 </script>
