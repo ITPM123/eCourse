@@ -3,7 +3,7 @@ package com.scut.ecourse.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "courseware_od_course")
+@Table(name = "courseware_of_course")
 public class CoursewareOfCourse {
     @Id
     @Column(name = "id", nullable = false)
