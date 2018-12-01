@@ -25,6 +25,12 @@ public class SchoolAnnouncementEntity {
     private String attachment2;
     @Column(name = "attachment_3")
     private String attachment3;
+    @Column(name = "fileName_1")
+    private String fileName1;
+    @Column(name = "fileName_2")
+    private String fileName2;
+    @Column(name = "fileName_3")
+    private String fileName3;
 
     public int getSchoolAnnouncementId() {
         return schoolAnnouncementId;
@@ -88,5 +94,29 @@ public class SchoolAnnouncementEntity {
 
     public void setAttachment3(String attachment3) {
         this.attachment3 = attachment3;
+    }
+
+    public String getFileName1() {
+        return fileName1;
+    }
+
+    public void setFileName1(String fileName1) {
+        this.fileName1 = fileName1;
+    }
+
+    public String getFileName2() {
+        return fileName2;
+    }
+
+    public void setFileName2(String fileName2) {
+        this.fileName2 = fileName2;
+    }
+
+    public String getFileName3() {
+        return fileName3;
+    }
+
+    public void setFileName3(String fileName3) {
+        this.fileName3 = fileName3;
     }
 }
