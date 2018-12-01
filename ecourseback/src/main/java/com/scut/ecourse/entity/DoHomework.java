@@ -21,6 +21,8 @@ public class DoHomework {
     private Date submit_time;
     @Column(name = "attachment",length = 100)
     private String attachment;
+    @Column(name = "attachment_filename",length = 100)
+    private String attachment_filename;
     @Column(name = "marked")
     private boolean marked;
     @Column(name = "content",length = 2000,columnDefinition = "Text")
@@ -98,5 +100,13 @@ public class DoHomework {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getAttachment_filename() {
+        return attachment_filename;
+    }
+
+    public void setAttachment_filename(String attachment_filename) {
+        this.attachment_filename = attachment_filename;
     }
 }

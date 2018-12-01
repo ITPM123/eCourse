@@ -9,6 +9,8 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "course_id")
     private Long course_id;
+    @Column(name = "person_id")
+    private Long person_id;
     @Column(name = "name", length = 40)
     private String name;
     @Column(name = "credit")
@@ -30,6 +32,14 @@ public class CourseEntity {
 
     public void setCourse_id(Long course_id) {
         this.course_id = course_id;
+    }
+
+    public Long getPerson_id() {
+        return person_id;
+    }
+
+    public void setPerson_id(Long person_id) {
+        this.person_id = person_id;
     }
 
     public String getName() {
