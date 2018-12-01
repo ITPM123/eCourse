@@ -11,10 +11,21 @@ public class CoursewareEntity {
     private Long courseware_id;
     @Column(name = "name",length = 40)
     private String name;
+    @Column(name = "courseware",length = 100)
+    private String courseware;
     @Column(name = "file_name",length = 100)
     private String file_name;
     @Column(name = "visibility")
     private boolean visibility;
+
+
+    public String getCourseware() {
+        return courseware;
+    }
+
+    public void setCourseware(String courseware) {
+        this.courseware = courseware;
+    }
 
     public Long getCourseware_id() {
         return courseware_id;

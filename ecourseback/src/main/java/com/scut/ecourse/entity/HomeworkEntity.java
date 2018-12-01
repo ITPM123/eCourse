@@ -22,6 +22,8 @@ public class HomeworkEntity {
     private Date deadline;
     @Column(name = "attachment",length = 100)
     private String attachment;
+    @Column(name = "attachment_filename",length = 100)
+    private String attachment_filename;
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity course;
@@ -76,6 +78,15 @@ public class HomeworkEntity {
 
     public CourseEntity getCourse() {
         return course;
+    }
+
+
+    public String getAttachment_filename() {
+        return attachment_filename;
+    }
+
+    public void setAttachment_filename(String attachment_filename) {
+        this.attachment_filename = attachment_filename;
     }
 
     @JsonBackReference
