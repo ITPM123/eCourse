@@ -1,11 +1,16 @@
 package com.scut.ecourse.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 public class PathUtil {
+
+    private static String rootPath="E:/upload";
+
     /**
      * 获取运行java -jar 命令所在目录下的指定目录
      */
@@ -18,7 +23,7 @@ public class PathUtil {
         try{
             File root = new File(ResourceUtils.getURL("classpath:").getPath());
             if (!root.exists()) root = new File("");
-            path = new File(root.getAbsolutePath(),subDir);
+            path = new File(rootPath,subDir);
             if (!path.exists())
                 path.mkdirs();
             return  path;

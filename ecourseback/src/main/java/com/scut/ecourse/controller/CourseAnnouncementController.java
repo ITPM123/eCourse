@@ -29,7 +29,7 @@ public class CourseAnnouncementController {
     }
 
     //新增公告
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Object addCourseAnnouncement(CourseAnnouncementEntity courseAnnouncementEntity,
             @RequestParam(name = "courseId",required = true)long courseId){
         return courseAnnouncementService.addCourseAnnouncementByCourseId(courseAnnouncementEntity,courseId);

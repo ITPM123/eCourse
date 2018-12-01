@@ -51,7 +51,7 @@ public class CourseAnnouncementService {
         newEntity.setContent(courseAnnouncementEntity.getContent());
         newEntity.setTitle(courseAnnouncementEntity.getTitle());
         courseAnnouncementJPA.save(newEntity);
-        return ResultUtil.resultGoodReturner(courseAnnouncementEntity);
+        return ResultUtil.resultGoodReturner(newEntity);
     }
 
     //删除公告

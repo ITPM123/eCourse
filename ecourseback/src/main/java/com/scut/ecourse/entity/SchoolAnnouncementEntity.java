@@ -1,9 +1,12 @@
 package com.scut.ecourse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "school_announcement")
+@JsonIgnoreProperties(value = {"author"})
 public class SchoolAnnouncementEntity {
 
     @Id
