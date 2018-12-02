@@ -2,10 +2,7 @@ package com.scut.ecourse.controller;
 
 import com.scut.ecourse.service.Course;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -46,5 +43,23 @@ public class CourseController {
         course.createCourse(name,credit,outline,overview,teaching_goal,description,files.get(0));
 
         return "upload successful";
+    }
+
+    @RequestMapping(value = "/listStudent",method = RequestMethod.GET)
+    public Object listStudent(@RequestParam(name = "courseId")long courseId,
+                              @RequestParam(name = "term",required = false,defaultValue = "")String term){
+        return course.getStudents(courseId,term);
+    }
+
+    @RequestMapping(value = "/addStudent",method = RequestMethod.POST)
+    public Object addStudent(@RequestParam(name = "code")String code,@RequestParam(name = "courseId")long courseId,
+                             @RequestParam(name = "term",required = false,defaultValue = "")String term){
+        return course.addStudent(courseId,code,term);
+    }
+
+    @RequestMapping(value = "/removeStudent",method = RequestMethod.GET)
+    public Object removeStudent(long courseId,int personId,
+                                @RequestParam(name = "term",required = false,defaultValue = "")String term){
+        return course.removeStudent(courseId,personId,term);
     }
 }

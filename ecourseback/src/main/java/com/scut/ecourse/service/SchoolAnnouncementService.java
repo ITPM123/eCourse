@@ -9,10 +9,13 @@ import com.scut.ecourse.util.DateFormatUtil;
 import com.scut.ecourse.util.FileUtil;
 import com.scut.ecourse.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class SchoolAnnouncementService {
@@ -22,15 +25,23 @@ public class SchoolAnnouncementService {
     @Autowired
     private PersonJPA personJPA;
     private String attachmentSubDir="/attachment/";
-
+    private int elementPerPage=10;
     //获取公告列表
-    public ResultEntity list(){
-        return ResultUtil.resultGoodReturner(schoolAnnouncementJPA.findAll());
+    public ResultEntity list(int page){
+        Page<SchoolAnnouncementEntity> p=schoolAnnouncementJPA.findAll(PageRequest.of(page,elementPerPage));
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("total",p.getTotalPages());
+        map.put("list",p.getContent());
+        return ResultUtil.resultGoodReturner(map);
     }
 
     //获取某个教务员所创建的公告列表
-    public ResultEntity listByPersonId(int personId){
-        return ResultUtil.resultGoodReturner(schoolAnnouncementJPA.findByAuthorId(personId));
+    public ResultEntity listByPersonId(int personId,int page){
+        Page<SchoolAnnouncementEntity> p=schoolAnnouncementJPA.findByAuthorId(personId,PageRequest.of(page,elementPerPage));
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("total",p.getTotalPages());
+        map.put("list",p.getContent());
+        return ResultUtil.resultGoodReturner(map);
     }
 
     //上传附件
