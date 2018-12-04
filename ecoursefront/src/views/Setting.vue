@@ -9,10 +9,19 @@
                 <a-menu-item key='4'>系统反馈</a-menu-item>
             </a-menu>
         </a-layout-header>
+
         <a-layout-content style="margin:50px 50px">
-            <div :style="{background:'#fff',padding:'24px',minHeight:'280px'}">
-            <component v-bind:is="whichShow"></component>
-            </div>
+            <a-layout style="padding:24px 0;background:#fff">
+                <a-layout-sider width="200" style="backgound:#fff">
+                    <a-menu mode="inline" :defaultSelectedKeys="['1']" style="height:120vh">
+                        <a-menu-item key="1">基础设置</a-menu-item>
+                        <a-menu-item key="2">安全设置</a-menu-item>
+                    </a-menu>
+                </a-layout-sider>
+                <a-layout-content :style="{padding:'0 24px',minHeight:'280px'}">
+                    <component v-bind:is="whichShow"></component>
+                </a-layout-content>
+            </a-layout>
         </a-layout-content>
         
         <a-layout-footer style="text-align:center">
@@ -22,22 +31,22 @@
 </template>
 
 <script>
-import ApplyResult from "../components/apply/ApplyResult.vue"
-import ApplyProcess from "../components/apply/ApplyProcess.vue"
+import BasicSetting from "../components/setting/BasicSetting.vue"
+import SecureSetting from "../components/setting/SecureSetting.vue"
 
 export default {
-    name:"ApplyCourse",
+    name:"Setting",
     data:function(){
         return {
-            whichShow:"ApplyResult"
+            whichShow:"BasicSetting"
         }
     },
     methods:{
 
     },
     components:{
-        ApplyResult,
-        ApplyProcess
+        BasicSetting,
+        SecureSetting
     }
 }
 </script>
