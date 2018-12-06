@@ -36,8 +36,8 @@ public class SchoolAnnouncementController {
 
     //新增公告
     @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Object add(SchoolAnnouncementEntity schoolAnnouncementEntity,int personId){
-        return schoolAnnouncementService.add(schoolAnnouncementEntity,personId);
+    public Object add(SchoolAnnouncementEntity schoolAnnouncementEntity){
+        return schoolAnnouncementService.add(schoolAnnouncementEntity);
     }
 
     //修改公告

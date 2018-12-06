@@ -11,11 +11,13 @@ import com.scut.ecourse.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class SchoolAnnouncementService {
@@ -52,10 +54,10 @@ public class SchoolAnnouncementService {
 
 
     //新增公告
-    public ResultEntity add(SchoolAnnouncementEntity schoolAnnouncement,int personId){
-
-        //TODO 判断身份
-        PersonEntity author=personJPA.findById(personId).get();
+    public ResultEntity add(SchoolAnnouncementEntity schoolAnnouncement){
+        PersonEntity author=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         if(author.getRole()!=0){
             return ResultUtil.resultBadReturner("需要教务员权限");
         }
@@ -67,10 +69,18 @@ public class SchoolAnnouncementService {
 
     //修改公告
     public ResultEntity update(SchoolAnnouncementEntity schoolAnnouncementEntity){
-
-        //TODO 判断权限
-        SchoolAnnouncementEntity newEntity=schoolAnnouncementJPA.findById(
-                schoolAnnouncementEntity.getSchoolAnnouncementId()).get();
+        Optional<SchoolAnnouncementEntity>optional=schoolAnnouncementJPA.findById(
+                schoolAnnouncementEntity.getSchoolAnnouncementId());
+        if(!optional.isPresent()){
+            return ResultUtil.resultBadReturner("公告不存在");
+        }
+        SchoolAnnouncementEntity newEntity=optional.get();
+        PersonEntity author=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(newEntity.getAuthor().getPersonId()!=author.getPersonId()){
+            return ResultUtil.resultBadReturner("无权限");
+        }
         schoolAnnouncementEntity.setAuthor(newEntity.getAuthor());
         schoolAnnouncementEntity.setCreateTime(DateFormatUtil.format(new Date()));
         schoolAnnouncementJPA.save(schoolAnnouncementEntity);
@@ -80,8 +90,18 @@ public class SchoolAnnouncementService {
     //删除公告
     public ResultEntity delete(int schoolAnnouncementId){
 
-        //TODO 判断权限
-        SchoolAnnouncementEntity entity=schoolAnnouncementJPA.findById(schoolAnnouncementId).get();
+        Optional<SchoolAnnouncementEntity>optional=schoolAnnouncementJPA.findById(
+                schoolAnnouncementId);
+        if(!optional.isPresent()){
+            return ResultUtil.resultBadReturner("公告不存在");
+        }
+        SchoolAnnouncementEntity entity=optional.get();
+        PersonEntity author=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(entity.getAuthor().getPersonId()!=author.getPersonId()){
+            return ResultUtil.resultBadReturner("无权限");
+        }
         schoolAnnouncementJPA.delete(entity);
         return ResultUtil.resultGoodReturner();
     }

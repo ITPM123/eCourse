@@ -17,7 +17,7 @@ public class InformationController {
     //获取个人资料
     @RequestMapping(value = "/getInformation",method = RequestMethod.GET)
     public Object getInformation(int personId){
-        return informationService.getByPersonId(personId);
+        return informationService.getByPersonId();
     }
 
     //修改个人资料

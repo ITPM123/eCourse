@@ -1,15 +1,14 @@
 package com.scut.ecourse.service;
 
-import com.scut.ecourse.entity.CourseEntity;
-import com.scut.ecourse.entity.PersonEntity;
-import com.scut.ecourse.entity.ResultEntity;
-import com.scut.ecourse.entity.Take;
+import com.scut.ecourse.entity.*;
 import com.scut.ecourse.jpa.CourseJPA;
 import com.scut.ecourse.jpa.PersonJPA;
 import com.scut.ecourse.jpa.TakeJPA;
+import com.scut.ecourse.jpa.TeachJPA;
 import com.scut.ecourse.util.FileUtil;
 import com.scut.ecourse.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +24,9 @@ public class Course {
     private PersonJPA personJPA;
     @Autowired
     private TakeJPA takeJPA;
+    @Autowired
+    private TeachJPA teachJPA;
+
     public void createCourse(String name,String credit,String outline,
                              String overview,String teaching_goal,String description,
                              MultipartFile image){
@@ -57,20 +59,30 @@ public class Course {
     }
 
     public ResultEntity addStudent(long courseId, String code,String term){
-        //TODO 判断权限
-        //TODO 判断是否重复添加
-        if(term==null||term.equals("")){
-            term=getCurrentTerm();
-        }
-        PersonEntity personEntity=personJPA.findByCode(code);
-        if(personEntity==null){
-            return ResultUtil.resultBadReturner("查无此人");
-        }
+        PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         Optional<CourseEntity>optional=courseJPA.findById(courseId);
         if(!optional.isPresent()){
             return ResultUtil.resultBadReturner("课程不存在");
         }
         CourseEntity courseEntity=optional.get();
+        if(term==null||term.equals("")){
+            term=getCurrentTerm();
+        }
+        Teach teach=teachJPA.findByTeacherAndCourseAndTerm(p,courseEntity,term);
+        if(teach==null){
+            return ResultUtil.resultBadReturner("无权限");
+        }
+
+        PersonEntity personEntity=personJPA.findByCode(code);
+        if(personEntity==null){
+            return ResultUtil.resultBadReturner("查无此人");
+        }
+        Take t=takeJPA.findByStudentAndCourseAndTerm(personEntity,courseEntity,term);
+        if(t!=null){
+            return ResultUtil.resultBadReturner("重复添加");
+        }
         Take take=new Take();
         take.setCourse(courseEntity);
         take.setStudent(personEntity);
@@ -84,9 +96,29 @@ public class Course {
     }
 
     public ResultEntity removeStudent(long courseId,int personId,String term){
-        //TODO 判断权限
+        PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        Optional<CourseEntity>optional=courseJPA.findById(courseId);
+        if(!optional.isPresent()){
+            return ResultUtil.resultBadReturner("课程不存在");
+        }
+        CourseEntity courseEntity=optional.get();
         if(term==null||term.equals("")){
             term=getCurrentTerm();
+        }
+        Teach teach=teachJPA.findByTeacherAndCourseAndTerm(p,courseEntity,term);
+        if(teach==null){
+            return ResultUtil.resultBadReturner("无权限");
+        }
+        Optional<PersonEntity>studentOptional=personJPA.findById(personId);
+        if(!studentOptional.isPresent()){
+            return ResultUtil.resultBadReturner("查无此人");
+        }
+        PersonEntity personEntity=studentOptional.get();
+        Take t=takeJPA.findByStudentAndCourseAndTerm(personEntity,courseEntity,term);
+        if(t==null){
+            return ResultUtil.resultBadReturner("课程名单中找不到该学生");
         }
         takeJPA.delete(courseId,personId,term);
         return ResultUtil.resultGoodReturner();

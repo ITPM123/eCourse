@@ -15,11 +15,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
 
 #临时目录
 server:
   tomcat:
     basedir: E:/lx78Temp
+
 
