@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "homework")
 public class HomeworkEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "homework_id")
     private Long homwwork_id;
     @Column(name = "homework_title",length = 40)

@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class PersonEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
     private int personId;
     @Column(name="username")
@@ -25,7 +25,7 @@ public class PersonEntity {
     private int role;//0为教务员，1为教师，2为学生
     @Column(name = "real_name")
     private String realName;
-    @Column(name = "code")
+    @Column(name = "code",unique = true,length = 20)
     private String code;//教工号/学号
     @Column(name = "title")
     private String title;//职称

@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "do_homework")
 public class DoHomework {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "homework_id")
