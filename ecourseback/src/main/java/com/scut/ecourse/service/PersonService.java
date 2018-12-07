@@ -19,6 +19,9 @@ public class PersonService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         PersonEntity personEntity=personJPA.findByCode(s);
+        if(personEntity==null){
+            return null;
+        }
         return personEntity;
     }
 

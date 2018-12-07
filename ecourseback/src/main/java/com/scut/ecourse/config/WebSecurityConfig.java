@@ -13,7 +13,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     AuthenticationSuccessHandler successHandler;
     @Autowired
     AuthenticationFailHandler failHandler;
-
+    @Autowired
+    MyLogoutSuccessHandler logoutSuccessHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
@@ -29,5 +30,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .csrf().disable();
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logoutSucceed")
+                .logoutSuccessHandler(logoutSuccessHandler);
     }
 }

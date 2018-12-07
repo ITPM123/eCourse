@@ -20,7 +20,12 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(200);
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(mapper.writeValueAsString(ResultUtil.resultBadReturner("密码错误")));
+        if(exception.getMessage().contains("坏的凭证")){
+            response.getWriter().write(mapper.writeValueAsString(ResultUtil.resultBadReturner("用户名或密码错误")));
+        }else{
+            response.getWriter().write(mapper.writeValueAsString(ResultUtil.resultBadReturner("账号不存在")));
+        }
+
 
     }
 }
