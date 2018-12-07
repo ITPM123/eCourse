@@ -1,6 +1,7 @@
 package com.scut.ecourse.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "courseware")
@@ -11,20 +12,29 @@ public class CoursewareEntity {
     private Long courseware_id;
     @Column(name = "name",length = 40)
     private String name;
-    @Column(name = "courseware",length = 100)
-    private String courseware;
+    @Column(name = "courseware_name",length = 100)
+    private String courseware_name;
     @Column(name = "file_name",length = 100)
     private String file_name;
     @Column(name = "visibility")
     private boolean visibility;
+    @Column(name = "upload_date")
+    private Date upload_date;
 
-
-    public String getCourseware() {
-        return courseware;
+    public Date getUpload_date() {
+        return upload_date;
     }
 
-    public void setCourseware(String courseware) {
-        this.courseware = courseware;
+    public void setUpload_date(Date upload_date) {
+        this.upload_date = upload_date;
+    }
+
+    public String getCourseware_name() {
+        return courseware_name;
+    }
+
+    public void setCourseware_name(String courseware_name) {
+        this.courseware_name = courseware_name;
     }
 
     public Long getCourseware_id() {

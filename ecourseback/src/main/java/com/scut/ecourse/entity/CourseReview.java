@@ -59,4 +59,5 @@ public class CourseReview {
     public void setPerson(PersonEntity person) {
         this.person = person;
     }
+
 }

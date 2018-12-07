@@ -25,8 +25,6 @@ public class DoHomework {
     private String attachment_filename;
     @Column(name = "marked")
     private boolean marked;
-    @Column(name = "content",length = 2000,columnDefinition = "Text")
-    private String content;
     @Column(name = "comment",length = 2000,columnDefinition = "Text")
     private String comment;
 
@@ -84,14 +82,6 @@ public class DoHomework {
 
     public void setMarked(boolean marked) {
         this.marked = marked;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getComment() {
