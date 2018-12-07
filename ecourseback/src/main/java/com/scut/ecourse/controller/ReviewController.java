@@ -62,8 +62,7 @@ public class ReviewController {
         String feedback=params.getParameter("feedback");
         String result=params.getParameter("result");
         String course_id=params.getParameter("course_id");
-        review.addReview(feedback,result,course_id);
-        return "review upload success";
+        return review.addReview(feedback,result,course_id);
     }
 
     //获取已审核课程的审核信息

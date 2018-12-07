@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
 import java.util.List;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -39,23 +37,23 @@ public class Course {
     private CoursewareOfCourseJPA coursewareOfCourseJPA;
     @Autowired
     private CoursewareJPA coursewareJPA;
-    @Autowired
-    private PersonJPA personJPA;
-    @Autowired
-    private TakeJPA takeJPA;
-    @Autowired
-    private TeachJPA teachJPA;
 
-    public void createCourse(String name,String credit,String outline,
+    public String createCourse(String name,String credit,String outline,
                              String overview,String teaching_goal,String description,
                              MultipartFile image){
         int creditInt=Integer.parseInt(credit);
 
         CourseEntity courseEntity=new CourseEntity();
 
-        //待完善--------------
         //需要获取登陆的用户的信息
-        courseEntity.setPerson_id(new Long(-1));
+        PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if(p.getRole()!=1)
+            return "invalid role";
+
+        courseEntity.setPerson_id(new Long(p.getPersonId()));
         //--------------------
 
         courseEntity.setName(name);
@@ -75,10 +73,10 @@ public class Course {
 
         System.out.println("course_id"+courseEntity.getCourse_id());
         courseJPA.save(courseEntity);
+        return "success";
     }
 
     public ResultEntity getStudents(long courseId,String term){
-
         return ResultUtil.resultGoodReturner(personJPA.findAllStudentsById(courseId));
     }
 
@@ -149,9 +147,10 @@ public class Course {
     }
 
     public JSONArray getCourses(int pageNumber,int pageSize){
-        //待完善--------------
         //需要获取登陆的用户的信息
-        PersonEntity personEntity=personJPA.findById(2).get();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         //--------------------
 
         //分页
@@ -177,9 +176,10 @@ public class Course {
     }
 
     public int getCoursesCount(){
-        //待完善--------------
         //需要获取登陆的用户的信息
-        PersonEntity personEntity=personJPA.findById(2).get();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         //--------------------
 
         //分页
@@ -208,9 +208,10 @@ public class Course {
 
     public int getCoursewareListCount(Long course_id){
 
-        //待完善--------------
         //需要获取登陆的用户的信息
-        PersonEntity personEntity=personJPA.findById(2).get();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         //--------------------
 
         if(personEntity.getRole()==1){
@@ -230,9 +231,10 @@ public class Course {
     public JSONArray getCoursewareList(Long course_id,int pageNumber,int pageSize){
         JSONArray result=new JSONArray();
 
-        //待完善--------------
         //需要获取登陆的用户的信息
-        PersonEntity personEntity=personJPA.findById(2).get();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         //--------------------
 
         if(personEntity.getRole()==1){
@@ -241,6 +243,8 @@ public class Course {
             List<CoursewareOfCourse>list=page.getContent();
             for(int i=0;i<list.size();i++){
                 result.add(list.get(i).getCourseware());
+                result.getJSONObject(i).discard("upload_date");
+                result.getJSONObject(i).put("upload_date",list.get(i).getCourseware().getUpload_date().toString());
             }
         }
         if(personEntity.getRole()==2){
@@ -249,12 +253,22 @@ public class Course {
             List<CoursewareOfCourse>list=page.getContent();
             for(int i=0;i<list.size();i++){
                 result.add(list.get(i).getCourseware());
+                result.getJSONObject(i).discard("upload_date");
+                result.getJSONObject(i).put("upload_date",list.get(i).getCourseware().getUpload_date().toString());
             }
         }
         return result;
     }
 
-    public void uploadCourseware(Long course_id, String name, Date upload_date,boolean visibility,MultipartFile file){
+    public String uploadCourseware(Long course_id, String name, Date upload_date,boolean visibility,MultipartFile file){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
+
         CourseEntity courseEntity=courseJPA.findById(course_id).get();
         CoursewareEntity coursewareEntity=new CoursewareEntity();
         coursewareEntity.setName(name);
@@ -268,15 +282,31 @@ public class Course {
         coursewareOfCourse.setCourse(courseEntity);
         coursewareOfCourse.setCourseware(coursewareEntity);
         coursewareOfCourseJPA.save(coursewareOfCourse);
+
+        return "success";
     }
 
-    public void modifyCourseware(Long courseware_id,boolean visibility){
+    public String modifyCourseware(Long courseware_id,boolean visibility){
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
         coursewareJPA.modify(courseware_id,visibility);
+        return "success";
     }
 
-    public void deleteCourseware(Long courseware_id){
+    public String deleteCourseware(Long courseware_id){
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
         coursewareOfCourseJPA.deleteByCoursewareId(courseware_id);
         coursewareJPA.deleteById(courseware_id);
+        return "success";
     }
 
 }

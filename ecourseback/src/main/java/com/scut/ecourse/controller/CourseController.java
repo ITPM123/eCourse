@@ -35,16 +35,14 @@ public class CourseController {
         String teaching_goal=params.getParameter("teaching_goal");
         String description=params.getParameter("description");
         if(files.size()>0){
-            course.createCourse(name,credit,outline,overview,teaching_goal,description,files.get(0));
+            return course.createCourse(name,credit,outline,overview,teaching_goal,description,files.get(0));
         }
         else{
-            course.createCourse(name,credit,outline,overview,teaching_goal,description,null);
+            return course.createCourse(name,credit,outline,overview,teaching_goal,description,null);
         }
-
-        return "upload successful";
     }
 
-    //获取课程列表（当前登陆用户为学生的话获取所学课程列表，为老师的话获取所交课程列表）
+    //获取课程列表（当前登陆用户为学生的话获取所学课程列表，为老师的话获取所教课程列表）
     @RequestMapping(value = "/getCoursesList", method = RequestMethod.POST)
     @ResponseBody
     public JSONArray getCourses(HttpServletRequest request){

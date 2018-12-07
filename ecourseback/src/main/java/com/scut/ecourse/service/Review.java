@@ -1,22 +1,26 @@
 package com.scut.ecourse.service;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.scut.ecourse.entity.CourseEntity;
 import com.scut.ecourse.entity.CourseReview;
 import com.scut.ecourse.entity.PersonEntity;
 import com.scut.ecourse.entity.Teach;
 import com.scut.ecourse.jpa.CourseJPA;
 import com.scut.ecourse.jpa.CourseReviewJPA;
+import com.scut.ecourse.jpa.PersonJPA;
 import com.scut.ecourse.jpa.TeachJPA;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Review {
@@ -26,9 +30,20 @@ public class Review {
     private CourseReviewJPA courseReviewJPA;
     @Autowired
     private TeachJPA teachJPA;
+    @Autowired
+    private PersonJPA personJPA;
 
     public JSONArray getUnexaminedCourse(int pageNumber,int pageSize){
         JSONArray result=new JSONArray();
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if(personEntity.getRole()!=0){
+            return result;
+        }
+
         //分页
         PageRequest pageRequest=new PageRequest(pageNumber,pageSize);
         //
@@ -42,6 +57,14 @@ public class Review {
         return result;
     }
     public int getUnexaminedCourseCount(){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return -1;
+        }
+
         PageRequest pageRequest=new PageRequest(0,100000);
         Page<BigInteger> page=courseReviewJPA.getUnexaminedCourseId(pageRequest);
         List<BigInteger> unexaminedCourseId=page.getContent();
@@ -50,6 +73,13 @@ public class Review {
 
     public JSONArray getExaminedCourse(int pageNumber,int pageSize){
         JSONArray result=new JSONArray();
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return result;
+        }
 
         //分页
         PageRequest pageRequest=new PageRequest(pageNumber,pageSize);
@@ -65,18 +95,30 @@ public class Review {
         return result;
     }
     public int getExaminedCourseCount(){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return -1;
+        }
+
         PageRequest pageRequest=new PageRequest(0,100000);
         Page<CourseReview>pages= courseReviewJPA.findAll(pageRequest);
         List<CourseReview>reviews=pages.getContent();
         return reviews.size();
     }
 
-    public void addReview(String feedback,String result,String course_id){
+    public String addReview(String feedback,String result,String course_id){
         boolean resultBoolean=Boolean.parseBoolean(result);
         CourseEntity courseEntity=courseJPA.findById(Long.parseLong(course_id)).get();
         //需要获取当前登陆的教务员的ID
-        PersonEntity personEntity=new PersonEntity();
-        personEntity.setPersonId(-1);
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return "invalid role";
+        }
         //--------------
         CourseReview courseReview=new CourseReview();
         courseReview.setCourse(courseEntity);
@@ -88,16 +130,26 @@ public class Review {
         if(resultBoolean){
             Teach teach=new Teach();
             teach.setCourse(courseEntity);
-            teach.setTeacher(personEntity);
+            PersonEntity p=personJPA.findById(courseEntity.getPerson_id().intValue()).get();
+            teach.setTeacher(p);
             teachJPA.save(teach);
         }
+        return "success";
     }
 
     public JSONObject getReview(Long review_id){
         CourseReview courseReview= courseReviewJPA.getReviewById(review_id);
         JSONObject result=new JSONObject();
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return result;
+        }
+
         result.put("course",courseReview.getCourse());
-        result.put("person",courseReview.getPerson());
+        result.put("person_id",courseReview.getPerson().getPersonId());
         result.put("feedback",courseReview.getFeedback());
         result.put("result",courseReview.isResult());
         return  result;

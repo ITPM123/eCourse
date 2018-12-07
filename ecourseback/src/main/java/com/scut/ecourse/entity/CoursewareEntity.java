@@ -1,10 +1,13 @@
 package com.scut.ecourse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "courseware")
+@JsonIgnoreProperties(value = {"password"})
 public class CoursewareEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

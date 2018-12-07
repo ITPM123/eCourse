@@ -8,6 +8,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +28,15 @@ public class Homework {
     @Autowired
     private TakeJPA takeJPA;
 
-    public void uploadCourseHomework(Long course_id, String homework_title, String description, Date deadline, Date release_date, MultipartFile file){
+    public String uploadCourseHomework(Long course_id, String homework_title, String description, Date deadline, Date release_date, MultipartFile file){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
+
         CourseEntity courseEntity=courseJPA.findById(course_id).get();
         HomeworkEntity homeworkEntity=new HomeworkEntity();
         homeworkEntity.setCourse(courseEntity);
@@ -45,11 +54,42 @@ public class Homework {
             homeworkEntity.setAttachment_filename("null");
         }
         homeworkJPA.save(homeworkEntity);
+        return "success";
     }
 
-    public void deleteCourseHomeworkById(Long homework_id){
+    public int getCourseHomeworkListCount(Long course_id){
+        PageRequest pageRequest=new PageRequest(0,1000000);
+        Page<HomeworkEntity> page=homeworkJPA.findByCourseId(course_id,pageRequest);
+        return page.getContent().size();
+    }
+
+    public JSONArray getCourseHomeworkList(Long course_id,int pageNumber,int pageSize){
+        PageRequest pageRequest=new PageRequest(pageNumber,pageSize);
+        Page<HomeworkEntity> page=homeworkJPA.findByCourseId(course_id,pageRequest);
+        List<HomeworkEntity>list=page.getContent();
+        JSONArray result=new JSONArray();
+        for(int i=0;i<list.size();i++){
+            result.add(list.get(i));
+            result.getJSONObject(i).discard("release_time");
+            result.getJSONObject(i).put("release_time",list.get(i).getRelease_time().toString());
+            result.getJSONObject(i).discard("deadline");
+            result.getJSONObject(i).put("deadline",list.get(i).getDeadline().toString());
+        }
+        return result;
+    }
+
+    public String deleteCourseHomeworkById(Long homework_id){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
+
         doHomeworkJPA.deleteByHomeworkId(homework_id);
         homeworkJPA.deleteById(homework_id);
+        return "success";
     }
 
     public int getStudentHomeworkListCount(Long homework_id){
@@ -65,18 +105,36 @@ public class Homework {
         List<DoHomework> list=page.getContent();
         for(int i=0;i<list.size();i++){
             result.add(list.get(i));
+            result.getJSONObject(i).getJSONObject("homework").discard("deadline");
+            result.getJSONObject(i).getJSONObject("homework").put("deadline",list.get(i).getHomework().getDeadline().toString());
+            result.getJSONObject(i).getJSONObject("homework").discard("release_time");
+            result.getJSONObject(i).getJSONObject("homework").put("release_time",list.get(i).getHomework().getDeadline().toString());
+            result.getJSONObject(i).getJSONObject("person").discard("password");
+            result.getJSONObject(i).discard("submit_time");
+            result.getJSONObject(i).put("submit_time",list.get(i).getSubmit_time().toString());
         }
         return result;
     }
 
-    public void reviewStudentHomework(Long do_homework_id,int score,String comment){
+    public String reviewStudentHomework(Long do_homework_id,int score,String comment){
+
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return "invalid role";
+        }
+
         doHomeworkJPA.review(do_homework_id,score,comment);
+
+        return "success";
     }
 
     public String uploadStudentHomework(Long homework_id,MultipartFile attachment){
-        //待完善--------------
         //需要获取登陆的用户的信息
-        PersonEntity personEntity=personJPA.findById(2).get();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
         //--------------------
 
         /*

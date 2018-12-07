@@ -41,27 +41,45 @@ public class HomeworkController {
         try {
             Date temp=sdf.parse(deadline);
             if(files.size()>0){
-                homework.uploadCourseHomework(Long.parseLong(course_id),homework_title,description,temp,release_date,files.get(0));
+                return homework.uploadCourseHomework(Long.parseLong(course_id),homework_title,description,temp,release_date,files.get(0));
             }
             else{
-                homework.uploadCourseHomework(Long.parseLong(course_id),homework_title,description,temp,release_date,null);
+                return homework.uploadCourseHomework(Long.parseLong(course_id),homework_title,description,temp,release_date,null);
             }
         } catch (ParseException e) {
             return e.getMessage();
         }
-        return "success";
+    }
+
+    //获取某一门课程的作业列表长度
+    @RequestMapping(value = "/getCourseHomeworkListCount", method = RequestMethod.POST)
+    @ResponseBody
+    public int getCourseHomeworkListCount(HttpServletRequest request){
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        String course_id=params.getParameter("course_id");
+        return homework.getCourseHomeworkListCount(Long.parseLong(course_id));
+    }
+    //获取某一门课程的作业列表
+    @RequestMapping(value = "/getCourseHomeworkList", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONArray getCourseHomeworkList(HttpServletRequest request){
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        String course_id=params.getParameter("course_id");
+        String pNumber=params.getParameter("pageNumber");
+        String pSize=params.getParameter("pageSize");
+        return homework.getCourseHomeworkList(Long.parseLong(course_id),Integer.parseInt(pNumber),Integer.parseInt(pSize));
     }
 
     //教师删除某一门课程的作业
     @RequestMapping(value = "/deleteCourseHomework", method = RequestMethod.POST)
     @ResponseBody
-    public void deleteCourseHomework(HttpServletRequest request){
+    public String deleteCourseHomework(HttpServletRequest request){
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
         String homework_id=params.getParameter("homework_id");
-        homework.deleteCourseHomeworkById(Long.parseLong(homework_id));
+        return homework.deleteCourseHomeworkById(Long.parseLong(homework_id));
     }
 
-    //教师获取学生所提交的作业列表的长度
+    //获取学生所提交的作业列表的长度
     @RequestMapping(value = "/getStudentHomeworkListCount", method = RequestMethod.POST)
     @ResponseBody
     public int getStudentHomeworkListCount(HttpServletRequest request){
@@ -84,12 +102,12 @@ public class HomeworkController {
     //教师批改某一个提交的作业
     @RequestMapping(value = "/reviewStudentHomework", method = RequestMethod.POST)
     @ResponseBody
-    public void reviewStudentHomework(HttpServletRequest request){
+    public String reviewStudentHomework(HttpServletRequest request){
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
         String id=params.getParameter("do_homework_id");
         String score=params.getParameter("score");
         String comment=params.getParameter("comment");
-        homework.reviewStudentHomework(Long.parseLong(id),Integer.parseInt(score),comment);
+        return homework.reviewStudentHomework(Long.parseLong(id),Integer.parseInt(score),comment);
     }
 
     //学生上传某一门作业的答案
@@ -103,7 +121,7 @@ public class HomeworkController {
         return homework.uploadStudentHomework(Long.parseLong(homework_id),files.get(0));
     }
 
-    //获取班级人数和已交作业人数
+    //获取课程人数和已交作业人数
     @RequestMapping(value = "/getStudentHomeworkSubmitData", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject getStudentHomeworkSubmitData(HttpServletRequest request){

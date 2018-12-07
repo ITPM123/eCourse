@@ -56,27 +56,26 @@ public class CoursewareController {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request)
                 .getFiles("file");
         Date date =new Date();
-        course.uploadCourseware(Long.parseLong(course_id),name,date,Boolean.parseBoolean(visibility),files.get(0));
-        return "upload success";
+        return course.uploadCourseware(Long.parseLong(course_id),name,date,Boolean.parseBoolean(visibility),files.get(0));
     }
 
     //更改课件的可见性
     @RequestMapping(value = "/modifyCourseware", method = RequestMethod.POST)
     @ResponseBody
-    public void modiifyCourseware(HttpServletRequest request){
+    public String  modiifyCourseware(HttpServletRequest request){
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
         String visibility=params.getParameter("visibility");
         String courseware_id=params.getParameter("courseware_id");
-        course.modifyCourseware(Long.parseLong(courseware_id),Boolean.parseBoolean(visibility));
+        return course.modifyCourseware(Long.parseLong(courseware_id),Boolean.parseBoolean(visibility));
     }
 
     //删除课件
     @RequestMapping(value = "/deleteCourseware", method = RequestMethod.POST)
     @ResponseBody
-    public void deleteCourseware(HttpServletRequest request){
+    public String deleteCourseware(HttpServletRequest request){
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
         String courseware_id=params.getParameter("courseware_id");
-        course.deleteCourseware(Long.parseLong(courseware_id));
+        return course.deleteCourseware(Long.parseLong(courseware_id));
     }
 
 }
