@@ -16,7 +16,7 @@ public class InformationController {
 
     //获取个人资料
     @RequestMapping(value = "/getInformation",method = RequestMethod.GET)
-    public Object getInformation(int personId){
+    public Object getInformation(){
         return informationService.getByPersonId();
     }
 
@@ -27,7 +27,7 @@ public class InformationController {
     }
 
     //修改密码
-    @RequestMapping(value = "/updatePassword",method = RequestMethod.GET)
+    @RequestMapping(value = "/updatePassword",method = RequestMethod.POST)
     public Object updatePassword(String oldPassword,String newPassword){
         return  informationService.updatePassword(oldPassword,newPassword);
     }
