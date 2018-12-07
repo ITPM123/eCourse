@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "courseware")
 public class CoursewareEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "courseware_id")
     private Long courseware_id;
     @Column(name = "name",length = 40)

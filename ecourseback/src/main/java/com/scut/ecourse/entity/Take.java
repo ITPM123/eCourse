@@ -7,14 +7,14 @@ import javax.persistence.*;
 public class Take {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @ManyToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "person_id",nullable = false)
     private PersonEntity student;
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id",nullable = false)
     private CourseEntity course;
     @Column(name = "term")
     private String term;

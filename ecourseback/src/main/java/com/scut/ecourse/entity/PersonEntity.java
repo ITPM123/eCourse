@@ -1,17 +1,22 @@
 package com.scut.ecourse.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "person")
-public class PersonEntity {
-
+@JsonIgnoreProperties(value = {"password"})
+public class PersonEntity implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
     private int personId;
-    @Column(name="username")
-    private String username;
+    @Column(name="nickname")
+    private String nickname;
     @Column(name="password")
     private String password;
     @Column(name = "sex",length = 1)
@@ -22,7 +27,7 @@ public class PersonEntity {
     private int role;//0为教务员，1为教师，2为学生
     @Column(name = "real_name")
     private String realName;
-    @Column(name = "code")
+    @Column(name = "code",unique = true,length = 20)
     private String code;//教工号/学号
     @Column(name = "title")
     private String title;//职称
@@ -32,8 +37,8 @@ public class PersonEntity {
     private String grade;
     @Column(name = "class")
     private String classs;
-    @Column(name = "address")
-    private String address;
+    @Column(name = "contact")
+    private String contact;
     @Column(name = "email")
     private String email;
     @Column(name = "motto")
@@ -48,11 +53,36 @@ public class PersonEntity {
     }
 
     public String getUsername() {
-        return username;
+        return code;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.code=username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {
@@ -135,12 +165,12 @@ public class PersonEntity {
         this.classs = classs;
     }
 
-    public String getAddress() {
-        return address;
+    public String getContact() {
+        return contact;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getEmail() {
@@ -157,5 +187,13 @@ public class PersonEntity {
 
     public void setMotto(String motto) {
         this.motto = motto;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

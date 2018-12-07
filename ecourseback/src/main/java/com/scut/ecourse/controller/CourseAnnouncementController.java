@@ -18,8 +18,9 @@ public class CourseAnnouncementController {
 
     //获取课程的公告列表
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public Object getCourseAnnouncementByCourseId(@RequestParam(name = "courseId",required = true)long courseId){
-       return courseAnnouncementService.getCourseAnnouncementByCourseId(courseId);
+    public Object getCourseAnnouncementByCourseId(@RequestParam(name = "courseId",required = true)long courseId,
+                                                  @RequestParam(name = "page",defaultValue = "0")int page){
+       return courseAnnouncementService.getCourseAnnouncementByCourseId(courseId,page);
     }
 
     //上传附件，返回系统生成的文件名

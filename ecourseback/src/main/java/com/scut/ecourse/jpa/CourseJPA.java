@@ -1,6 +1,7 @@
 package com.scut.ecourse.jpa;
 
 import com.scut.ecourse.entity.CourseEntity;
+import com.scut.ecourse.entity.PersonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

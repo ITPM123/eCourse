@@ -18,14 +18,14 @@ public class SchoolAnnouncementController {
 
     //获取公告列表
     @RequestMapping(value = "list",method = RequestMethod.GET)
-    public Object list(){
-        return schoolAnnouncementService.list();
+    public Object list(@RequestParam(name = "page",defaultValue = "0")int page){
+        return schoolAnnouncementService.list(page);
     }
 
     //获取某个教务员所创建的公告列表
     @RequestMapping(value = "listByAuthorId",method = RequestMethod.GET)
-    public Object listByAuthorId(int authorId){
-        return schoolAnnouncementService.listByPersonId(authorId);
+    public Object listByAuthorId(int authorId,int page){
+        return schoolAnnouncementService.listByPersonId(authorId,page);
     }
 
     //上传附件，返回系统生成的文件名
@@ -36,8 +36,8 @@ public class SchoolAnnouncementController {
 
     //新增公告
     @RequestMapping(value = "add",method = RequestMethod.POST)
-    public Object add(SchoolAnnouncementEntity schoolAnnouncementEntity,int personId){
-        return schoolAnnouncementService.add(schoolAnnouncementEntity,personId);
+    public Object add(SchoolAnnouncementEntity schoolAnnouncementEntity){
+        return schoolAnnouncementService.add(schoolAnnouncementEntity);
     }
 
     //修改公告
