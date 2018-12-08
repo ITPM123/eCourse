@@ -19,15 +19,12 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
-    @Autowired
-    private TeacherService teacherService;
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public Object teacher(PersonEntity personEntity){
         return teacherService.createTeacher(personEntity);
     }
-    }
+
 
     @RequestMapping(value = "/removeTeacher",method = RequestMethod.GET)
     public Object removeTeacher(int personId){
