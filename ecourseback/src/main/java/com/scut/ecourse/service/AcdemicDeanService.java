@@ -19,30 +19,16 @@ public class AcdemicDeanService {
     @Autowired
     private PersonJPA personJPA;
 
-    public void createAcdemicDean(int personId, String username, String password, int sex, String school,
-                              String realName, String code, String title, String major,
-                              String grade, String classs, String address, String email, String motto) {
+    public ResultEntity createAcdemicDean(PersonEntity personEntity) {
 
-//        PersonEntity personEntity = new PersonEntity();
-//
-//        //------------
-//        personEntity.setPersonId(-1);
-//        //------------
-//
-//        personEntity.setUsername(username);
-//        personEntity.setPassword(password);
-//        personEntity.setSex(sex);
-//        personEntity.setSchool(school);
-//        personEntity.setRole(0);
-//        personEntity.setRealName(realName);
-//        personEntity.setCode(code);
-//        personEntity.setTitle(title);
-//        personEntity.setMajor(major);
-//        personEntity.setGrade(grade);
-//        personEntity.setClasss(classs);
-//        personEntity.setAddress(address);
-//        personEntity.setEmail(email);
-//        personEntity.setMotto(motto);
+        PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(p.getRole()!=3){
+            return ResultUtil.resultBadReturner("需要系统管理员权限");
+        }
+        personJPA.save(personEntity);
+        return ResultUtil.resultGoodReturner(personEntity);
     }
 
 
@@ -51,6 +37,9 @@ public class AcdemicDeanService {
         PersonEntity p = (PersonEntity) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
+        if(p.getRole()!=3){
+            return ResultUtil.resultBadReturner("需要系统管理员权限");
+        }
         Optional<PersonEntity>optional = personJPA.findById(personId);
         if(!optional.isPresent()) {
             return ResultUtil.resultBadReturner("教务员不存在");
