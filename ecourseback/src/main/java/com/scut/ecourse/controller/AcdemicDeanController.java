@@ -20,43 +20,8 @@ public class AcdemicDeanController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public String createAcdemicDean(HttpServletRequest request) {
-        MultipartHttpServletRequest params = ((MultipartHttpServletRequest) request);
-
-        String personId = params.getParameter("personId");
-        System.out.println("personId:"+personId);
-        String username = params.getParameter("username");
-        System.out.println("username:"+username);
-        String password = params.getParameter("password");
-        System.out.println("password:"+password);
-        String sex = params.getParameter("sex");
-        System.out.println("sex:"+sex);
-        String school = params.getParameter("school");
-        System.out.println("school:"+school);
-        String realName = params.getParameter("realName");
-        System.out.println("realName:"+realName);
-        String code = params.getParameter("code");
-        System.out.println("code:"+code);
-        String title = params.getParameter("title");
-        System.out.println("title:"+title);
-        String major = params.getParameter("major");
-        System.out.println("major:"+major);
-        String grade = params.getParameter("grade");
-        System.out.println("grade:"+grade);
-        String classs = params.getParameter("classs");
-        System.out.println("classs:"+classs);
-        String address = params.getParameter("address");
-        System.out.println("address:"+address);
-        String email = params.getParameter("email");
-        System.out.println("email:"+email);
-        String motto = params.getParameter("motto");
-        System.out.println("motto:"+motto);
-
-        acdemicDeanService.createAcdemicDean(Integer.parseInt(personId),username,password,Integer.parseInt(sex),school,
-                realName,code,title,major,grade,classs,address,email,motto);
-
-        return "upload successful";
-
+    public Object acdemicDean(PersonEntity personEntity){
+        return acdemicDeanService.createAcdemicDean(personEntity);
     }
 
     @RequestMapping(value = "/removeAcdemicDean",method = RequestMethod.GET)
