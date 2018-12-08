@@ -20,26 +20,26 @@ public class TeacherService {
                               String realName, String code, String title, String major,
                               String grade, String classs, String address, String email, String motto) {
 
-        PersonEntity personEntity = new PersonEntity();
-
-        //------------
-        personEntity.setPersonId(-1);
-        //------------
-
-        personEntity.setUsername(username);
-        personEntity.setPassword(password);
-        personEntity.setSex(sex);
-        personEntity.setSchool(school);
-        personEntity.setRole(1);
-        personEntity.setRealName(realName);
-        personEntity.setCode(code);
-        personEntity.setTitle(title);
-        personEntity.setMajor(major);
-        personEntity.setGrade(grade);
-        personEntity.setClasss(classs);
-        personEntity.setAddress(address);
-        personEntity.setEmail(email);
-        personEntity.setMotto(motto);
+//        PersonEntity personEntity = new PersonEntity();
+//
+//        //------------
+//        personEntity.setPersonId(-1);
+//        //------------
+//
+//        personEntity.setUsername(username);
+//        personEntity.setPassword(password);
+//        personEntity.setSex(sex);
+//        personEntity.setSchool(school);
+//        personEntity.setRole(1);
+//        personEntity.setRealName(realName);
+//        personEntity.setCode(code);
+//        personEntity.setTitle(title);
+//        personEntity.setMajor(major);
+//        personEntity.setGrade(grade);
+//        personEntity.setClasss(classs);
+//        personEntity.setAddress(address);
+//        personEntity.setEmail(email);
+//        personEntity.setMotto(motto);
     }
 
 

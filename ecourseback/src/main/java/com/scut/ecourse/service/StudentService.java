@@ -16,30 +16,16 @@ public class StudentService {
     @Autowired
     private PersonJPA personJPA;
 
-    public void createStudent(int personId, String username, String password, int sex, String school,
-                              String realName, String code, String title, String major,
-                              String grade, String classs, String address, String email, String motto) {
+    public ResultEntity createStudent(PersonEntity personEntity) {
 
-        PersonEntity personEntity = new PersonEntity();
-
-        //------------
-        personEntity.setPersonId(-1);
-        //------------
-
-        personEntity.setUsername(username);
-        personEntity.setPassword(password);
-        personEntity.setSex(sex);
-        personEntity.setSchool(school);
-        personEntity.setRole(2);
-        personEntity.setRealName(realName);
-        personEntity.setCode(code);
-        personEntity.setTitle(title);
-        personEntity.setMajor(major);
-        personEntity.setGrade(grade);
-        personEntity.setClasss(classs);
-        personEntity.setAddress(address);
-        personEntity.setEmail(email);
-        personEntity.setMotto(motto);
+        PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(p.getRole()!=0){
+            return ResultUtil.resultBadReturner("需要教务员权限");
+        }
+        personJPA.save(personEntity);
+        return ResultUtil.resultGoodReturner(personEntity);
     }
 
 
@@ -47,13 +33,15 @@ public class StudentService {
         PersonEntity p = (PersonEntity) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
+        if(p.getRole()!=0){
+            return ResultUtil.resultBadReturner("需要教务员权限");
+        }
         Optional<PersonEntity> optional = personJPA.findById(personId);
         if(!optional.isPresent()) {
             return ResultUtil.resultBadReturner("学生不存在");
         }
         personJPA.delete(personId);
         return ResultUtil.resultGoodReturner();
-
     }
 
 
