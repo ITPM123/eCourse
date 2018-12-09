@@ -16,6 +16,7 @@ public class SecurityController {
 
     @RequestMapping("/authentication/require")
     public ResultEntity requireAuthentication(HttpServletRequest request, HttpServletResponse response) {
+        response.setStatus(200);
         return ResultUtil.resultBadReturner("未登录");
     }
 }

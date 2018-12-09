@@ -97,23 +97,17 @@ export default {
       this.pagination=pagination
     });
     },
-    fetch(params={}){
+    fetch(){
       this.loading=true;
       axios({
-        method:'get',
-        url:'https://randomuser.me/api',
+        method:'post',
+        url:'/login',
         data:{
-          results:10,
-          ...params,
-        },
-        type:'json'
+          username:6713,
+          password:123456
+        }
       }).then((data)=>{
         console.log("请求数据",data)
-        const pagination={...this.pagination};
-        pagination.total=200;
-        this.loading=false;
-        this.data=data.results;
-        this.pagination=pagination;
       })
     },
     // fetch (params = {}) {

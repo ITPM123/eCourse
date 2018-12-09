@@ -4,7 +4,6 @@ spring:
       max-file-size: 100MB
       max-request-size: 500MB
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ecourse?characterEncoding=utf8&useSSL=false&serverTimezone=GMT
     username: root
     password: 523521lx

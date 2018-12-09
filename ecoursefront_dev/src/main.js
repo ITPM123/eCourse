@@ -11,7 +11,7 @@ Vue.prototype.$http = axios
 Vue.config.productionTip=false
 Vue.use(Antd)
 
-// axios.defaults.baseURL='/api'
+axios.defaults.baseURL='/api'
 
 new Vue({
   router,

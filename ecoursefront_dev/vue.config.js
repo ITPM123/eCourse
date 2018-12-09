@@ -9,13 +9,13 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
   },
-  // devServer:{
-  //   proxy:{
-  //     '/api':{
-  //       target:'http://localhost:8081',
-  //       pathRewrite:{'^api':''},
-  //       "secure":false
-  //     }
-  //   }
-  // }
+  devServer:{
+    proxy:{
+      '/api':{
+        target:'http://localhost:8081',
+        pathRewrite:{'^api':''},
+        "secure":false
+      }
+    }
+  }
 }

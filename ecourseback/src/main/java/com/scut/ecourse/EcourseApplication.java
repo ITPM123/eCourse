@@ -17,7 +17,7 @@ public class EcourseApplication {
         SpringApplication.run(EcourseApplication.class, args);
     }
 
-    /*private CorsConfiguration buildConfig(){
+   /* private CorsConfiguration buildConfig(){
         CorsConfiguration corsConfiguration=new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("http://localhost:8080");
         corsConfiguration.addAllowedHeader("*");

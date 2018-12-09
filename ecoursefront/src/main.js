@@ -10,7 +10,6 @@ Vue.config.productionTip = false
 
 Vue.use(Antd)
 Vue.use(VueRouter)
-
 axios.defaults.baseURL="/api"
 const router=new VueRouter({
     routes
