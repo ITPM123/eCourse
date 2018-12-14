@@ -4,10 +4,11 @@ import Review from "./views/Review.vue"
 import Setting from "./views/Setting.vue"
 import CourseManage from "./views/CourseManage.vue"
 import ApplyCourse from "./views/ApplyCourse.vue"
+import CreateAnnounce from './components/Createannounce'
 let routers=[
     {
         path:"/",
-        redirect:"/applyCourse"
+        redirect:"/create"
     },
     {
         path:"/login",
@@ -33,6 +34,10 @@ let routers=[
     {
         path:'/applyCourse',
         component:ApplyCourse
+    },
+    {
+        path:'/create',
+        component:CreateAnnounce
     }
 
 ];

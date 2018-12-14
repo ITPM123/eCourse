@@ -25,7 +25,5 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
         }else{
             response.getWriter().write(mapper.writeValueAsString(ResultUtil.resultBadReturner("账号不存在")));
         }
-
-
     }
 }

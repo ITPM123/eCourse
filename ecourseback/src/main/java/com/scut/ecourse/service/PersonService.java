@@ -18,6 +18,7 @@ public class PersonService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        System.out.println("username:"+s);
         PersonEntity personEntity=personJPA.findByCode(s);
         if(personEntity==null){
             return null;
