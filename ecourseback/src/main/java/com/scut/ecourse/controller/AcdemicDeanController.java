@@ -18,6 +18,12 @@ public class AcdemicDeanController {
     @Autowired
     private AcdemicDeanService acdemicDeanService;
 
+    //获取教务员列表
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    public Object list(@RequestParam(name = "page",defaultValue = "0")int page){
+        return acdemicDeanService.list(page);
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public Object acdemicDean(PersonEntity personEntity){
