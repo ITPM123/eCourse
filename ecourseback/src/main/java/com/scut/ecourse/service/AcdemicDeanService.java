@@ -18,10 +18,10 @@ public class AcdemicDeanService {
 
     @Autowired
     private PersonJPA personJPA;
-
+    private int elementPerPage=10;
     //获取教务员列表
     public ResultEntity list(int page){
-        Page<PersonEntity> p=personJPA.findAll(PageRequest.of(page,elementPerPage));
+        Page<PersonEntity> p=personJPA.findAllByRole(0,PageRequest.of(page,elementPerPage));
         HashMap<String,Object>map=new HashMap<>();
         map.put("total",p.getTotalPages());
         map.put("list",p.getContent());

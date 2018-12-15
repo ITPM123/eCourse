@@ -1,6 +1,8 @@
 package com.scut.ecourse.jpa;
 
 import com.scut.ecourse.entity.PersonEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +16,9 @@ public interface PersonJPA
     PersonEntity findByCode(String code);
     @Query(value = "select * from person where person_id in (select person_id from take where course_id=:id)",nativeQuery = true)
     List<PersonEntity> findAllStudentsById(@Param("id")long id);
+
+    @Query(value = "select * from person where role=:r",nativeQuery = true)
+    Page<PersonEntity> findAllByRole(@Param("r")int role, Pageable pageable);
 
     @Modifying
     @Transactional
