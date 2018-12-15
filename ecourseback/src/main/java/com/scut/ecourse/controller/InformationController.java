@@ -17,9 +17,13 @@ public class InformationController {
     //获取个人资料
     @RequestMapping(value = "/getInformation",method = RequestMethod.GET)
     public Object getInformation(){
-        return informationService.getByPersonId();
+        return informationService.get();
     }
 
+    @RequestMapping(value = "/getInformationById",method = RequestMethod.GET)
+    public Object getInformationById(int id){
+        return informationService.getByPersonId(id);
+    }
     //修改个人资料
     @RequestMapping(value = "/update",method = RequestMethod.GET)
     public Object update(PersonEntity personEntity){

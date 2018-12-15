@@ -16,12 +16,26 @@ public class InformationService {
     PersonJPA personJPA;
 
     //获取个人资料
-    public ResultEntity getByPersonId(){
+    public ResultEntity get(){
         //获取当前登录用户
         PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
         return ResultUtil.resultGoodReturner(personEntity);
+    }
+
+    public ResultEntity getByPersonId(int id){
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=0){
+            return ResultUtil.resultBadReturner("无权限");
+        }
+        Optional<PersonEntity> o=personJPA.findById(id);
+        if(!o.isPresent()){
+            return ResultUtil.resultBadReturner("查无此人");
+        }
+        return ResultUtil.resultGoodReturner(o.get());
     }
 
     //修改个人资料

@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
 import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -52,7 +54,14 @@ public class Review {
         for(int i=0;i<unexaminedCourseId.size();i++){
             Long id=Long.valueOf(unexaminedCourseId.get(i).toString());
             CourseEntity entity=courseJPA.findById(id).get();
-            result.add(entity);
+            PersonEntity temp0=personJPA.findById(entity.getPerson_id().intValue()).get();
+            JSONObject temp=new JSONObject();
+            temp.put("person_name",temp0.getRealName());
+            Map<String,Object>map=new HashMap<>();
+            map.put("course",entity);
+            map.put("personName",temp0.getRealName());
+            //result.add(temp);
+            result.add(map);
         }
         return result;
     }
