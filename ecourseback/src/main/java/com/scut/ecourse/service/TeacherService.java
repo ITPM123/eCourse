@@ -16,6 +16,14 @@ public class TeacherService {
     @Autowired
     private PersonJPA personJPA;
 
+    //获取教师列表
+    public ResultEntity list(int page){
+        Page<PersonEntity> p=personJPA.findAll(PageRequest.of(page,elementPerPage));
+        HashMap<String,Object>map=new HashMap<>();
+        map.put("total",p.getTotalPages());
+        map.put("list",p.getContent());
+        return ResultUtil.resultGoodReturner(map);
+
     public ResultEntity createTeacher(PersonEntity personEntity) {
 
         PersonEntity p=(PersonEntity) SecurityContextHolder.getContext()

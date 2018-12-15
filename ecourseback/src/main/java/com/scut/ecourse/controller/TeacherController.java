@@ -19,6 +19,12 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    //获取教师列表
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    public Object list(@RequestParam(name = "page",defaultValue = "0")int page){
+        return teacherService.list(page);
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public Object teacher(PersonEntity personEntity){
