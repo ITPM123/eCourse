@@ -92,7 +92,7 @@ public class Course {
         if(term==null||term.equals("")){
             term=getCurrentTerm();
         }
-        Teach teach=teachJPA.findByTeacherAndCourseAndTerm(p,courseEntity,term);
+        Teach teach=teachJPA.findByTeacherAndCourse(p,courseEntity);
         if(teach==null){
             return ResultUtil.resultBadReturner("无权限");
         }
@@ -129,7 +129,7 @@ public class Course {
         if(term==null||term.equals("")){
             term=getCurrentTerm();
         }
-        Teach teach=teachJPA.findByTeacherAndCourseAndTerm(p,courseEntity,term);
+        Teach teach=teachJPA.findByTeacherAndCourse(p,courseEntity);
         if(teach==null){
             return ResultUtil.resultBadReturner("无权限");
         }
