@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ecourse?characterEncoding=utf8&useSSL=false&serverTimezone=GMT&allowPublicKeyRetrieval=true
     username: root
-    password: mm19980121
+    password: 523521lx
     driverClassName: com.mysql.jdbc.Driver
   mvc:
     static-path-pattern: /download/**

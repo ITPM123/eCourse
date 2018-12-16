@@ -21,7 +21,7 @@ public class StudentController {
     private StudentService studentService;
 
     //获取教务员列表
-    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
     public Object list(@RequestParam(name = "page",defaultValue = "0")int page){
         return studentService.list(page);
     }
