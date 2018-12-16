@@ -178,11 +178,17 @@ public class Review {
             jsonObject.put("courseInfo",list.get(i));
             List<CourseReview> tempList=courseReviewJPA.getReviewByCourseId(list.get(i).getCourse_id());
             if(tempList.size()==0){
-                jsonObject.put("review_status","reviewing");
+                jsonObject.put("review_status","审核中");
             }
             else{
-                jsonObject.put("review_status",tempList.get(0).isResult());
+                if(tempList.get(0).isResult()){
+                    jsonObject.put("review_status","已通过");
+                }
+                else{
+                    jsonObject.put("review_status","未通过");
+                }
             }
+            result.add(jsonObject);
         }
         return result;
     }

@@ -6,12 +6,12 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ecourse?characterEncoding=utf8&useSSL=false&serverTimezone=GMT&allowPublicKeyRetrieval=true
     username: root
-    password: 523521lx
+    password: L3054
     driverClassName: com.mysql.jdbc.Driver
   mvc:
     static-path-pattern: /download/**
   resources:
-    static-locations: file:E:/upload/
+    static-locations: file:D:/upload/
 
   jpa:
     hibernate:
@@ -21,6 +21,6 @@ spring:
 #临时目录
 server:
   tomcat:
-    basedir: E:/lx78Temp
+    basedir: D:/lx78Temp
 
 

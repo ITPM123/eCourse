@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 
 public class PathUtil {
 
-    private static String rootPath="E:/upload";
+    private static String rootPath="D:/upload";
 
     /**
      * 获取运行java -jar 命令所在目录下的指定目录
