@@ -164,4 +164,27 @@ public class Review {
         return  result;
     }
 
+    public JSONArray getCoursesByPerson(){
+        JSONArray result=new JSONArray();
+        PersonEntity personEntity=(PersonEntity) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        if(personEntity.getRole()!=1){
+            return result;
+        }
+        List<CourseEntity> list=courseJPA.getCoursesByPersonId(Long.parseLong(personEntity.getPersonId()+""));
+        for(int i=0;i<list.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("courseInfo",list.get(i));
+            List<CourseReview> tempList=courseReviewJPA.getReviewByCourseId(list.get(i).getCourse_id());
+            if(tempList.size()==0){
+                jsonObject.put("review_status","reviewing");
+            }
+            else{
+                jsonObject.put("review_status",tempList.get(0).isResult());
+            }
+        }
+        return result;
+    }
+
 }

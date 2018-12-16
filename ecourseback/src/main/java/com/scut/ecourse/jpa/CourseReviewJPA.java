@@ -16,4 +16,7 @@ public interface CourseReviewJPA extends JpaRepository<CourseReview,Long> {
 
     @Query(value = "select * from course_review where id = :id",nativeQuery = true)
     public CourseReview getReviewById(@Param("id")Long id);
+
+    @Query(value = "select * from course_review where course_id = :id",nativeQuery = true)
+    public List<CourseReview> getReviewByCourseId(@Param("id")Long id);
 }

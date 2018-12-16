@@ -1,6 +1,7 @@
 package com.scut.ecourse.controller;
 
 import com.scut.ecourse.service.Review;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,12 @@ public class ReviewController {
         String review_id=params.getParameter("review_id");
         System.out.println(review_id);
         return review.getReview(Long.parseLong(review_id));
+    }
+
+    //
+    @RequestMapping(value = "/getCoursesByPerson", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONArray getCoursesByPerson(HttpServletRequest request){
+        return review.getCoursesByPerson();
     }
 }
