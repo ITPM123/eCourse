@@ -101,7 +101,7 @@ public class Course {
         if(personEntity==null){
             return ResultUtil.resultBadReturner("查无此人");
         }
-        Take t=takeJPA.findByStudentAndCourseAndTerm(personEntity,courseEntity,term);
+        Take t=takeJPA.findByStudentAndCourse(personEntity,courseEntity);
         if(t!=null){
             return ResultUtil.resultBadReturner("重复添加");
         }
@@ -138,7 +138,7 @@ public class Course {
             return ResultUtil.resultBadReturner("查无此人");
         }
         PersonEntity personEntity=studentOptional.get();
-        Take t=takeJPA.findByStudentAndCourseAndTerm(personEntity,courseEntity,term);
+        Take t=takeJPA.findByStudentAndCourse(personEntity,courseEntity);
         if(t==null){
             return ResultUtil.resultBadReturner("课程名单中找不到该学生");
         }
