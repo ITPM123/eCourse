@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg">
     <login/>
   </div>
 </template>
@@ -15,4 +15,11 @@ export default {
 </script>
 
 <style>
+.bg{
+  background-image: url('../assets/bg.jpg');
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  height:110%;
+}
 </style>

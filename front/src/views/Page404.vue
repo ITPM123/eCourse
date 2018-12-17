@@ -1,5 +1,5 @@
 <template>
-  <div>404</div>
+  <div class='exception'>404</div>
 </template>
 
 <script>
@@ -10,4 +10,9 @@ export default {
 </script>
 
 <style>
+.exception{
+  background-image: url('../assets/404.jpg');
+  width:100%;
+  height: 100%;
+}
 </style>
