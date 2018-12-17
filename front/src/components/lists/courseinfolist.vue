@@ -1,20 +1,20 @@
 <template>
   <div>
-     <a-row :gutter="0">
+    <a-row :gutter="0">
       <a-col :span="8">
-        <a-card title="课程名称" :bordered=false>
+        <a-card title="课程名称" :bordered="false">
           <p>{{courseInfo.name}}</p>
         </a-card>
-        <a-card title="课程概述" :bordered=false>
+        <!-- <a-card title="课程概述" :bordered=false>
           <p>{{courseInfo.description}}</p>
-        </a-card>
-        <a-card title="课程简介" :bordered=false>
+        </a-card>-->
+        <a-card title="课程概述" :bordered="false">
           <p>{{courseInfo.overview}}</p>
         </a-card>
-        <a-card title="课程大纲" :bordered=false>
+        <a-card title="课程大纲" :bordered="false">
           <p>{{courseInfo.outline}}</p>
         </a-card>
-        <a-card title="授课目标" :bordered=false>
+        <a-card title="授课目标" :bordered="false">
           <p>{{courseInfo.teaching_goal}}</p>
         </a-card>
       </a-col>
@@ -40,7 +40,7 @@ export default {
         overview: " ",
         outline: " ",
         teaching_goal: " "
-      },
+      }
     };
   },
 

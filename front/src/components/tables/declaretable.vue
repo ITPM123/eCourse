@@ -1,31 +1,27 @@
 <template>
-  <a-table :columns="columns"
-    :dataSource="data"
-    :pagination="pagination"
-    :loading="loading">
-  </a-table>
+  <a-table :columns="columns" :dataSource="data" :pagination="pagination" :loading="loading"></a-table>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-const columns = [{
-  title: '课程名称',
-  dataIndex: 'courseInfo.name',
-  key:'name',
-  sorter: true,
-  width: '30%',
-  scopedSlots: { customRender: 'name' },
-}, {
-  title: '审核状态',
-  dataIndex: 'review_status',
-  // key:'gender',
-  // onFilter: (value, record) => record.address.indexOf(value) === 0,
-  width: '20%',
-  
-}];
+const columns = [
+  {
+    title: "课程名称",
+    dataIndex: "courseInfo.name",
+    key: "name",
+    sorter: true,
+    width: "30%",
+    scopedSlots: { customRender: "name" }
+  },
+  {
+    title: "审核状态",
+    dataIndex: "review_status",
+    width: "20%"
+  }
+];
 
 export default {
-  name:'declaremanage',
+  name: "declaremanage",
   mounted() {
     this.init();
   },
@@ -34,26 +30,25 @@ export default {
       data: [],
       pagination: {},
       loading: true,
-      columns,
-    }
+      columns
+    };
   },
 
   methods: {
-    init(){
-      let that=this;
+    init() {
+      let that = this;
       axios({
-        url:"/reviewCourse/getCoursesByPerson",
-        method:"post",
-      })
-      .then(response=>{
+        url: "/reviewCourse/getCoursesByPerson",
+        method: "post"
+      }).then(response => {
         console.log("教师获取课程状态");
         console.log(response);
-        that.data=response.data;
-        that.loading=false;
-      })
+        that.data = response.data;
+        that.loading = false;
+      });
     },
-    
- handleTableChange (pagination, filters, sorter) {
+
+    handleTableChange(pagination, filters, sorter) {
       console.log(pagination);
       const pager = { ...this.pagination };
       pager.current = pagination.current;
@@ -63,16 +58,16 @@ export default {
         page: pagination.current,
         sortField: sorter.field,
         sortOrder: sorter.order,
-        ...filters,
+        ...filters
       });
     },
-      onDelete (key) {
-      const data = [...this.data]
-      this.data = data.filter(item => item.key!== key)
+    onDelete(key) {
+      const data = [...this.data];
+      this.data = data.filter(item => item.key !== key);
     },
-    viewHandle(){
-        this.$router.push('detail')
+    viewHandle() {
+      this.$router.push("detail");
     }
-  },
-}
+  }
+};
 </script>

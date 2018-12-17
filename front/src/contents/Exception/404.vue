@@ -1,12 +1,9 @@
 <template>
-  <div>
-    我是404页
-  </div>
+  <div>我是404页</div>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style>

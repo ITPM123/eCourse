@@ -22,8 +22,7 @@
         >{{uploading ? '上传中' : '上传课件' }}</a-button>
       </div>
     </div>
-    <a-divider style="margin-bottom:0"></a-divider> -->
-
+    <a-divider style="margin-bottom:0"></a-divider>-->
     <coursewaretable/>
     <router-view></router-view>
   </div>
@@ -86,34 +85,7 @@ export default {
     }
   },
 
-  mounted() {
-    this.init();
-  },
-
   methods: {
-    /**初始化 */
-    init() {
-      axios({
-        method: "post",
-        url: "/login",
-        transformRequest: [
-          function(data) {
-            let newData = "";
-            for (let k in data) {
-              newData +=
-                encodeURIComponent(k) + "=" + encodeURIComponent(data[k]) + "&";
-            }
-            return newData;
-          }
-        ],
-        data: {
-          username: 2,
-          password: 123456
-        }
-      }).then(res => {
-        console.log(res);
-      });
-    },
     handleRemove(file) {
       console.log(zzz);
       const index = this.fileList.indexOf(file);
@@ -123,29 +95,29 @@ export default {
       return true;
     },
     handleUpload() {
-        let that=this;
-      console.log(that.fileList[0])
-       let param=new FormData();
-       param.append("course_id",this.$store.state.courseInfo.course_id);
-       param.append("name",that.fileList[0].name);
-        param.append('file', that.fileList[0]);
-        param.append("visibility",'true')
-      this.uploading = true
+      let that = this;
+      console.log(that.fileList[0]);
+      let param = new FormData();
+      param.append("course_id", this.$store.state.courseInfo.course_id);
+      param.append("name", that.fileList[0].name);
+      param.append("file", that.fileList[0]);
+      param.append("visibility", "true");
+      this.uploading = true;
       axios({
-        url: '/courseware/uploadCourseware',
-        method: 'post',
-        data: param,
+        url: "/courseware/uploadCourseware",
+        method: "post",
+        data: param
       })
-      .then(  ()=> {
-          console.log("aa")
-          that.fileList = []
-          that.uploading = false
+        .then(() => {
+          console.log("aa");
+          that.fileList = [];
+          that.uploading = false;
           // $message.success('提交成功');
         })
-      .catch(() => {
-          that.uploading = false
+        .catch(() => {
+          that.uploading = false;
           // this.$message.error('上传失败');
-      })
+        });
     },
 
     beforeUpload(file) {

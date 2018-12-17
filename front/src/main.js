@@ -5,23 +5,23 @@ import Antd from 'ant-design-vue'
 import VueRouter from 'vue-router'
 import 'ant-design-vue/dist/antd.css'
 import routes from './routes'
-import axios from"axios"
+import axios from "axios"
 import store from './store'
 Vue.config.productionTip = false
 
 Vue.use(Antd)
 Vue.use(VueRouter)
-axios.defaults.baseURL="/api"
-const router=new VueRouter({
-    routes
+axios.defaults.baseURL = "/api"
+const router = new VueRouter({
+  routes
 })
 
-router.beforeEach(function(to,from,next){
+router.beforeEach(function (to, from, next) {
   //未登录，跳转到登录页
-  if(!store.state.isLogin){
-    if(to.path==='/login'){
+  if (!store.state.isLogin) {
+    if (to.path === '/login') {
       next()
-    }else{
+    } else {
       next('/login')
     }
   }
@@ -30,7 +30,7 @@ router.beforeEach(function(to,from,next){
 
 
 new Vue({
-    router,
-    store,
+  router,
+  store,
   render: h => h(App)
 }).$mount('#app')
