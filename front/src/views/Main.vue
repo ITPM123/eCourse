@@ -188,7 +188,10 @@ import dataHomework from "../contents/course/teacherhomework/HomeworkData.vue";
 import homeworkReviewer from "../contents/course/teacherhomework/HomeworkReview.vue";
 import studentHomework from "../contents/course/StudentHomework.vue";
 import courseClass from "../contents/course/courseManage/CourseClass.vue";
+
 import classStudent from "../contents/course/courseManage/ClassStudent.vue";
+// import classStudent1 from "../contents/course/courseManage/ClassStudent.vue";
+
 import homeworkPublisher from "../contents/course/teacherhomework/publishHomework.vue";
 import publishCourseAnn from "../contents/course/publishCourseAnn.vue";
 import annConent from "../contents/schoolannouncement/announcementContent.vue";
@@ -265,8 +268,10 @@ export default {
     dataHomework,
     homeworkReviewer,
     studentHomework,
+
     courseClass,
     classStudent,
+
     homeworkPublisher,
     publishCourseAnn,
     annConent,
@@ -319,28 +324,28 @@ export default {
       return this.$store.state.content;
     },
     isAdmin() {
-      if (this.$store.state.userInfo.role == 0) {
+      if (this.$store.state.userInfo.role == 3) {
         return true;
       } else {
         return false;
       }
     },
     isAcademic() {
-      if (this.$store.state.userInfo.role == 1) {
+      if (this.$store.state.userInfo.role == 0) {
         return true;
       } else {
         return false;
       }
     },
     isTeacher() {
-      if (this.$store.state.userInfo.role == 2) {
+      if (this.$store.state.userInfo.role == 1) {
         return true;
       } else {
         return false;
       }
     },
     isStudent() {
-      if (this.$store.state.userInfo.role == 3) {
+      if (this.$store.state.userInfo.role == 2) {
         return true;
       } else {
         return false;

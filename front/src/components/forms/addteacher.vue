@@ -12,7 +12,7 @@ const Demo = {
         if (!err) {
           console.log("Received values of form: ", values);
         }
-        param.append("real_name", values.name);
+        param.append("realName", values.name);
         param.append("code", values.code);
         param.append("school", values.school);
         param.append("password", 123456);

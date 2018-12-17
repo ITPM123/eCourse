@@ -97,28 +97,28 @@ export default {
 
   computed: {
     isAdmin() {
-      if (this.$store.state.userInfo.role == 0) {
+      if (this.$store.state.userInfo.role == 3) {
         return true;
       } else {
         return false;
       }
     },
     isAcademic() {
-      if (this.$store.state.userInfo.role == 1) {
+      if (this.$store.state.userInfo.role == 0) {
         return true;
       } else {
         return false;
       }
     },
     isTeacher() {
-      if (this.$store.state.userInfo.role == 2) {
+      if (this.$store.state.userInfo.role == 1) {
         return true;
       } else {
         return false;
       }
     },
     isStudent() {
-      if (this.$store.state.userInfo.role == 3) {
+      if (this.$store.state.userInfo.role == 2) {
         return true;
       } else {
         return false;

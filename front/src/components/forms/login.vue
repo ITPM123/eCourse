@@ -20,8 +20,8 @@ const NormalLoginForm = {
           }).then(response => {
             console.log(response);
             let c = response.data.data;
-            console.log(c);
-            c.role = c.role + 1;
+            // console.log(c);
+            // c.role = c.role + 1;
             that.$store.commit("setUserInfo", c);
 
             that.$store.state.isLogin = true;
