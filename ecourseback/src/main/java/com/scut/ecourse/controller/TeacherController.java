@@ -27,7 +27,7 @@ public class TeacherController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public Object teacher(PersonEntity personEntity){
+    public Object addTeacher(PersonEntity personEntity){
         return teacherService.createTeacher(personEntity);
     }
 

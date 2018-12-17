@@ -26,7 +26,7 @@ public class AcdemicDeanController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public Object acdemicDean(PersonEntity personEntity){
+    public Object addAcdemicDean(PersonEntity personEntity){
         return acdemicDeanService.createAcdemicDean(personEntity);
     }
 

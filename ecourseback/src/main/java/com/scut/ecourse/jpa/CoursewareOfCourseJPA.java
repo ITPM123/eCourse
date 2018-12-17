@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 public interface CoursewareOfCourseJPA extends JpaRepository<CoursewareOfCourse,Long> {
     @Query(value = "select * from courseware_of_course where course_id=:id",nativeQuery = true)
     Page<CoursewareOfCourse> findByCourseId(@Param("id")Long course_id, Pageable pageable);
-    @Query(value = "select * from courseware_of_course where course_id=:id and visibility = 1",nativeQuery = true)
+    @Query(value = "select * from courseware_of_course natural join courseware where course_id=:id and visibility = 1",nativeQuery = true)
     Page<CoursewareOfCourse> findVisibleCoursewaresByCourseId(@Param("id")Long course_id, Pageable pageable);
 
     @Transactional

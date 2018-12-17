@@ -28,7 +28,7 @@ public class StudentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public Object student(PersonEntity personEntity){
+    public Object addStudent(PersonEntity personEntity){
         return studentService.createStudent(personEntity);
     }
 
