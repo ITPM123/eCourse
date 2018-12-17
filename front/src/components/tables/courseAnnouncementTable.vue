@@ -8,7 +8,7 @@
         <a-popconfirm
           v-if="data.length&&(isTeacher||isTest)"
           title="确认删除"
-          @confirm="() => onDelete(record.key)"
+          @confirm="() => onDelete(record.courseAnnouncementId)"
           okText="确认"
           cancelText="取消"
         >
@@ -60,14 +60,16 @@ export default {
 
     onDelete(key) {
       const data = [...this.data];
-      this.data = data.filter(item => item.key !== key);
+      this.data = data.filter(item => item.courseAnnouncementId !== key);
+      let that =this
+      let url="?courseAnnouncementId="+key
       axios({
-        url: "/courseAnnouncement/delete",
+        url: "/courseAnnouncement/delete"+url,
         methods: "get",
-        data: {
-          courseAnnouncementId: 4
-        }
-      });
+      })
+      .then(response=>{
+        that.init()
+      })
     },
 
     handleView(record) {
@@ -76,22 +78,21 @@ export default {
       this.$store.commit("setCourseAnnouncement", record);
       this.$store.commit("changeContent", "readCourseAnn");
     },
-    
 
     /**获取课程公告列表 */
     getTable() {
       let that = this;
-      setTimeout(function() {
-        let url =
-          "?courseId=" + that.$store.state.courseInfo.course_id + "&page=" + 0;
-        axios({
-          url: "/courseAnnouncement/list" + url,
-          method: "get"
-        }).then(response => {
-          console.log(response);
-          that.data = response.data.data.list;
-        });
-      }, 1000);
+      // setTimeout(function() {
+      let url =
+        "?courseId=" + that.$store.state.courseInfo.course_id + "&page=" + 0;
+      axios({
+        url: "/courseAnnouncement/list" + url,
+        method: "get"
+      }).then(response => {
+        console.log(response);
+        that.data = response.data.data.list;
+      });
+      // }, 1000);
     }
   },
 

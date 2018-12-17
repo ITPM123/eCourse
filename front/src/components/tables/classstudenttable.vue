@@ -17,7 +17,7 @@
       <template slot="operation" slot-scope="text, record">
         <a-popconfirm
           title="确认删除"
-          @confirm="()=>onDelete(record,record.key)"
+          @confirm="()=>onDelete(record,record.person_id)"
           okText="确认"
           cancelText="取消"
         >
@@ -36,27 +36,27 @@ const columns = [
   {
     title: "学生学号",
     dataIndex: "code",
-    width: "15%"
+    width: "20%"
   },
   {
     title: "学生姓名",
     dataIndex: "realName",
-    width: "15%"
+    width: "20%"
   },
   {
     title: "学院",
     dataIndex: "school",
-    width: "15%"
-  },
-  {
-    title: "专业",
-    dataIndex: "major",
     width: "20%"
   },
+  // {
+  //   title: "专业",
+  //   dataIndex: "major",
+  //   width: "20%"
+  // },
   {
     title: "年级",
     dataIndex: "grade",
-    width: "10%"
+    width: "20%"
   },
   {
     title: "选择操作",
@@ -84,7 +84,7 @@ export default {
   methods: {
     init() {
       // console.log("课程id"+this.$store.state.courseInfo.course_id)
-      let url="?courseId="+this.$store.state.courseInfo.course_id
+      let url = "?courseId=" + this.$store.state.courseInfo.course_id;
       // let url = "?courseId=" + 16;
       axios({
         url: "/course/listStudent" + url,
@@ -98,16 +98,22 @@ export default {
 
     onDelete(record, key) {
       const data = [...this.data];
-      this.data = data.filter(item => item.key !== key);
-
-      let url = "?personId=" + record.personId.toString() + "&courseId=" + 16;
-      console.log(record.personId.toString());
+      this.data = data.filter(item => item.person_id !== key);
+      let that = this;
+      let url =
+        "?personId=" +
+        record.personId.toString() +
+        "&courseId=" +
+        this.$store.state.courseInfo.course_id;
+      // console.log(record.personId.toString());
       console.log("删除班级学生");
       axios({
         url: "/course/removeStudent" + url,
         method: "get"
       }).then(response => {
         console.log(response);
+        that.$message.success("删除成功");
+        that.init();
       });
     },
 
@@ -120,8 +126,7 @@ export default {
       this.visible = false;
       let param = new FormData();
       param.append("code", this.code);
-      param.append("courseId",this.$store.state.courseInfo.course_id);
-      // param.append("courseId", 16);
+      param.append("courseId", this.$store.state.courseInfo.course_id);
       axios({
         url: "/course/addStudent",
         method: "post",
@@ -129,6 +134,7 @@ export default {
       }).then(response => {
         console.log(response);
         if (response.data.errCode == 0) {
+          that.$message.success("添加成功");
           that.init();
         }
       });

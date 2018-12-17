@@ -20,7 +20,7 @@
       <a-textarea v-model="homeworkContent" :rows="8"/>
     </div>
 
-    <div :style="{ margin: '10px 10px 25px 10px'}">作业附件：
+    <!-- <div :style="{ margin: '10px 10px 25px 10px'}">作业附件：
       <a-upload
         action="/homework/getCourseHomeworkList"
         :fileList="fileList"
@@ -37,20 +37,7 @@
         :disabled="fileList.length === 0"
         :loading="uploading"
       >{{uploading ? '上传中' : '提交作业' }}</a>
-    </div>
-
-    <div :style="{ margin: '10px 10px 25px 10px'}">选择班级：
-      <a-select
-        mode="multiple"
-        :defaultValue="['一班']"
-        style="width: 20%"
-        @change="handleChange"
-        placeholder="选择班级"
-        :style="{ margin: '20px 0px 25px 0px'}"
-      >
-        <a-select-option v-for="i in 9" :key="(i).toString(36)">{{(i).toString(36)}}班</a-select-option>
-      </a-select>
-    </div>
+    </div> -->
 
     <div>
       <a-button type="primary" :style="{margin:'10px 10px 15px 10px'}" @click="handleSubmit">提交</a-button>
@@ -160,7 +147,7 @@ export default {
     /**处理提交**/
     handleSubmit() {
       console.log();
-
+      let that=this
       let param = new FormData();
       const { fileList } = this;
       fileList.forEach(file => {
@@ -188,7 +175,10 @@ export default {
         this.fileList = [];
         this.uploading = false;
         this.$message.success("提交成功");
-      });
+      })
+      .then(response=>{
+        that.$store.commit("changeContent","homeworkList")
+      })
 
       // this.$store.commit('changeContent',"HomeworkList");
     },

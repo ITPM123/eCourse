@@ -25,7 +25,6 @@
       <a-divider style="margin-bottom:0"></a-divider>
 
       <a-table :columns="teacherColumns" :dataSource="list">
-        <!-- <span slot="aid" slot-scope="text">{{text}}</span> -->
         <span slot="visibility" slot-scope="text,record">
           <a-tag v-if="text" color="#1ABC9C" :key="0">可见</a-tag>
           <a-tag v-else color="#E74C3C" :key="1">不可见</a-tag>
@@ -37,19 +36,11 @@
           <a :href="'/api/download/Courseware/'+record.file_name">下载</a>
           <a-divider type="vertical"/>
           <a @click="onDelete(record.courseware_id)">删除</a>
-
-          <!-- <a-popconfirm  v-if="list.length"
-                title="确认删除？"
-                okText="确认"
-                cancelText="取消"
-                @confirm="()=>onDelete(record.courseware_id)">
-                    <a>删除</a>
-          </a-popconfirm>-->
         </span>
       </a-table>
     </div>
+
     <a-table v-else :columns="studentColumns" :dataSource="list">
-      <span slot="aid" slot-scope="text">{{text}}</span>
       <span slot="action" slot-scope="text,record">
         <a :href="'/api/download/Courseware/'+record.file_name">下载</a>
       </span>
@@ -101,23 +92,23 @@ const studentColumns = [
   }
 ];
 
-var data = [
-  {
-    title: "first",
-    visibility: true,
-    key: "0"
-  },
-  {
-    title: "second",
-    visibility: true,
-    key: "1"
-  },
-  {
-    title: "third",
-    visibility: false,
-    key: "2"
-  }
-];
+// var data = [
+//   {
+//     title: "first",
+//     visibility: true,
+//     key: "0"
+//   },
+//   {
+//     title: "second",
+//     visibility: true,
+//     key: "1"
+//   },
+//   {
+//     title: "third",
+//     visibility: false,
+//     key: "2"
+//   }
+// ];
 
 export default {
   name: "coursewaretable",
@@ -131,6 +122,7 @@ export default {
       teacherColumns,
       studentColumns,
       fileList: [],
+
       uploading: false
     };
   },
@@ -138,25 +130,20 @@ export default {
   methods: {
     init() {
       let that = this;
-      console.log(this.$store.state.userInfo.role);
       let param = new FormData();
       param.append("course_id", this.$store.state.courseInfo.course_id);
-      // param.append("pageSize",this.pageSize);
-      //param.append("course_id",16);
-      param.append("pageNumber", 0); //
-      param.append("pageSize", 10); //
-      setTimeout(function() {
-        axios({
-          url: "/courseware/getCoursewareList",
-          method: "post",
-          data: param
-        }).then(response => {
-          console.log("课件列表");
-          // console.log(that.list)
-          that.list = response.data;
-          console.log(that.list);
-        });
-      }, 1000);
+      param.append("pageNumber", 0);
+      param.append("pageSize", 10);
+      axios({
+        url: "/courseware/getCoursewareList",
+        method: "post",
+        data: param
+      }).then(response => {
+        console.log("课件列表");
+        that.list = response.data;
+        console.log(that.list);
+      });
+      console.log("获取列表");
     },
 
     //删除列表项
@@ -197,6 +184,7 @@ export default {
           } else {
             list[i].visibility = true;
 
+            let that = this;
             let param = new FormData();
             param.append("courseware_id", key);
             param.append("visibility", true);
@@ -222,6 +210,7 @@ export default {
       this.fileList = newFileList;
       return true;
     },
+
     handleUpload() {
       let that = this;
       console.log(that.fileList[0]);

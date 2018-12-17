@@ -73,15 +73,23 @@ export default {
     onDelete(record, key) {
       const data = [...this.data];
       this.data = data.filter(item => item.key !== key);
-
+      let that=this
       let url = "?personId=" + record.personId.toString();
       console.log(record.personId.toString());
       console.log("sad");
       axios({
-        url: "/teacher/removeAcdemicDean" + url,
+        url: "/teacher/removeTeacher" + url,
         method: "get"
       }).then(response => {
-        console.log(response);
+        if(response.data.errCode==0){
+          console.log(response);
+          that.$message.success("删除教师成功")
+          that.init();
+          // that.$store.commit("changeContent",'teacherList')
+        }else{
+          console.log("删除教师失败")
+        }
+        
       });
     }
   }

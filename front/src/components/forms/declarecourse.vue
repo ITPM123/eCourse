@@ -92,6 +92,7 @@ export default {
   methods: {
     /**提交申报信息 */
     handleSubmit() {
+      let that = this;
       let param = new FormData();
       param.append("name", this.name);
       param.append("credit", 4);
@@ -105,8 +106,9 @@ export default {
         data: param
       }).then(response => {
         console.log(response);
-        if (response.status == 200) 
-        this.$store.commit('changeContent','declareCourse')
+        // if (response.status == 200)
+        that.$message.success("申报成功");
+        that.$store.commit("changeContent", "declareList");
       });
     }
   }

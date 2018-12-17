@@ -23,22 +23,17 @@ const columns = [
   {
     title: "教务员工号",
     dataIndex: "code",
-    width: "20%"
+    width: "30%"
   },
   {
     title: "教务员姓名",
     dataIndex: "realName",
-    width: "20%"
+    width: "30%"
   },
   {
     title: "学院",
     dataIndex: "school",
-    width: "20%"
-  },
-  {
-    title: "职称",
-    dataIndex: "title",
-    width: "10%"
+    width: "30%"
   },
   {
     title: "选择操作",
@@ -75,7 +70,7 @@ export default {
     onDelete(record, key) {
       const data = [...this.data];
       this.data = data.filter(item => item.key !== key);
-
+      let that =this
       let url = "?personId=" + record.personId.toString();
       console.log(record.personId.toString());
       console.log("sad");
@@ -83,7 +78,17 @@ export default {
         url: "/acdemicDean/removeAcdemicDean" + url,
         method: "get"
       }).then(response => {
-        console.log(response);
+        if(response.data.errCode==0){
+          console.log("删除教员")
+           that.$message.success("删除成功");
+          console.log(response);
+          that.init();
+        }
+        else
+        {
+
+        }
+        
       });
     }
   }

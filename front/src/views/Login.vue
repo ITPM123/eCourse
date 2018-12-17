@@ -18,8 +18,10 @@ export default {
 .bg{
   background-image: url('../assets/bg.jpg');
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  height:110%;
+  /* flex-direction: column; */
+  /* align-content: center; */
+  /* height:100%;
+   */
+  background-size: "cover",
 }
 </style>

@@ -87,9 +87,9 @@ export default {
       headers: {
         authorization: "authorization-text"
       },
-      
-      score: "",
-      comment: "",
+
+      score:null,
+      comment:null
     };
   },
 
@@ -101,7 +101,7 @@ export default {
     /**学生获取作业列表 */
     init() {
       let param = new FormData();
-      param.append("course_id",this.$store.state.courseInfo.course_id);
+      param.append("course_id", this.$store.state.courseInfo.course_id);
       param.append("pageNumber", 0);
       param.append("pageSize", 10);
       axios({
@@ -121,21 +121,22 @@ export default {
         }
         //this.data=response.data;
       });
+
     },
 
     /** 确定操作*/
     handleOk() {
+      this.score=null,
+      this.comment=null,
       this.ModalText = "The modal will be closed after two seconds";
       this.visible = false;
-      this.confirmLoading = true;
-      setTimeout(() => {
-        this.visible = false;
-        this.confirmLoading = false;
-      }, 200);
+      // this.confirmLoading = false;
     },
 
     /**取消操作 */
     handleCancel() {
+      this.score=null,
+      this.comment=null,
       this.visible = false;
     },
 
@@ -181,8 +182,8 @@ export default {
     handleUpload(record) {
       console.log("上传文件");
       let param = new FormData();
-      let that =this
-      param.append("homework_id", (record.content.homwwork_id).toString());
+      let that = this;
+      param.append("homework_id", record.content.homwwork_id.toString());
       // const { fileList } = record.fileList;
       // console.log(typeof record.fileList);
       param.append("attachment", record.fileList[0]);
@@ -197,11 +198,11 @@ export default {
           console.log("aa");
           record.fileList = [];
           record.uploading = false;
-          that.$message.success('提交成功');
+          that.$message.success("提交成功");
         })
         .catch(() => {
           record.uploading = false;
-          that.$message.error('上传失败');
+          that.$message.error("上传失败");
         });
     }
   }

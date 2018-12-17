@@ -2,43 +2,12 @@
 import { Form } from "ant-design-vue";
 import axios from "axios";
 
-const residences = [
-  {
-    value: "sc",
-    label: "软件学院",
-    children: [
-      {
-        value: "se",
-        label: "软件工程"
-      }
-    ]
-  },
-  {
-    value: "csc",
-    label: "计算机学院",
-    children: [
-      {
-        value: "cs",
-        label: "计算机科学"
-      },
-      {
-        value: "ns",
-        label: "网络安全"
-      },
-      {
-        value: "is",
-        label: "信息安全"
-      }
-    ]
-  }
-];
-
 const Demo = {
   methods: {
     /**提交学生信息 */
     handleSubmit(e) {
       let param = new FormData();
-
+      let that = this;
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -53,7 +22,7 @@ const Demo = {
         param.append("title", " ");
         param.append("nickname", " ");
         param.append("major", " ");
-        param.append("grade", " ");
+        param.append("grade", values.grade);
         param.append("classs", " ");
         param.append("contact", " ");
         param.append("email", " ");
@@ -64,9 +33,20 @@ const Demo = {
         url: "/student/create",
         method: "post",
         data: param
-      }).then(response => {
-        console.log(response);
-      });
+      }).then(
+        response => {
+          if (response.data.errCode == 0) {
+            console.log(response);
+            that.$message.success("添加学生成功");
+            that.$store.commit("changeContent", "studentList");
+          }
+        },
+        error => {
+          console.log(error);
+          message.error("添加学生失败");
+          console.log("添加学生失败");
+        }
+      );
     }
   },
   render() {

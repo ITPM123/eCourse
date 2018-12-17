@@ -6,7 +6,7 @@
         :labelCol="formItemLayout.labelCol"
         :wrapperCol="formItemLayout.wrapperCol"
       >
-        <a-input v-model="nickname" placeholder="输入昵称"/>
+        <a-input v-model="userInfo.nickname" placeholder="输入昵称"/>
       </a-form-item>
 
       <a-form-item
@@ -14,7 +14,7 @@
         :labelCol="formItemLayout.labelCol"
         :wrapperCol="formItemLayout.wrapperCol"
       >
-        <a-input v-model="motto" placeholder="输入个性签名"/>
+        <a-input v-model="userInfo.motto" placeholder="输入个性签名"/>
       </a-form-item>
 
       <a-form-item
@@ -22,7 +22,7 @@
         :labelCol="formItemLayout.labelCol"
         :wrapperCol="formItemLayout.wrapperCol"
       >
-        <a-input v-model="contact" placeholder="输入联系方式"/>
+        <a-input v-model="userInfo.contact" placeholder="输入联系方式"/>
       </a-form-item>
 
       <a-form-item
@@ -30,7 +30,7 @@
         :labelCol="formItemLayout.labelCol"
         :wrapperCol="formItemLayout.wrapperCol"
       >
-        <a-input v-model="email" placeholder="输入工作邮箱"/>
+        <a-input v-model="userInfo.email" placeholder="输入工作邮箱"/>
       </a-form-item>
 
       <a-form-item :wrapperCol="buttonItemLayout.wrapperCol">
@@ -47,25 +47,37 @@ export default {
   data() {
     return {
       formLayout: "horizontal",
-      nickname: "",
-      motto: "",
-      email: "",
-      contact: ""
+      userInfo:{
+        nickname:null,
+        motto: null,
+        email: null,
+        contact: null
+      }
     };
+  },
+  mounted(){
+    this.init();
+    console.log(this.$store.state.userInfo)
+    this.userInfo=this.$store.state.userInfo
   },
 
   methods: {
+    /**获取用户个人信息 */
+    init(){
+
+
+    },
     handleSubmit() {
       let param = new FormData();
       let url =
         "nickname=" +
-        this.nickname +
+        this.userInfo.nickname +
         "&motto=" +
-        this.motto +
+        this.userInfo.motto +
         "&email=" +
-        this.email +
+        this.userInfo.email +
         "&contact=" +
-        this.contact;
+        this.userInfo.contact;
       axios({
         url: "/information/update?" + url,
         method: "get",

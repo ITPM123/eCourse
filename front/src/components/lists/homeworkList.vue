@@ -4,6 +4,8 @@
     <a-table bordered :dataSource="dataSource" :columns="columns">
       <template slot="operation" slot-scope="text, record">
         <a type="text" @click="()=>clickReview(record)" :style="{color: '#2E8DEF'}">批改</a>
+        <a-divider type="vertical"/>
+        <a type="text" @click="()=>onDelete(record)" :style="{color: '#2E8DEF'}"> 删除</a>
       </template>
       <p slot="expandedRowRender" slot-scope="record" style="margin: 0">{{record.description}}</p>
     </a-table>
@@ -103,6 +105,23 @@ export default {
     /**查看数据 */
     clickData() {
       //  this.$store.commit('changeContent',"dataHomework")
+    },
+
+    /**删除作业 */
+    onDelete(record){
+      let that=this
+      let param= new FormData()
+      console.log("删除作业")
+      console.log(record.homwwork_id)
+      param.append("homework_id",record.homwwork_id)
+      axios({
+        url:"homework/deleteCourseHomework",
+        method:"post",
+        data:param
+      })
+      .then(response=>{
+        that.init()
+      })
     }
   }
 };

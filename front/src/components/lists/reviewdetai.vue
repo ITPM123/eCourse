@@ -30,7 +30,8 @@
     </a-card>
 
     <a-card v-model="detail" title="审核意见" class="card">
-      <a-form :form="form">
+      <!-- <a-form :form="form"> -->
+        <a-form>
         <a-form-item>
           <a-select v-model="result" placeholder="请选择审核意见">
             <a-select-option value="true">通过</a-select-option>
@@ -101,6 +102,9 @@ export default {
         email: " ",
         contact: " "
       },
+
+      detail:"",
+
       result: " ",
       feedback: " ",
       radioStyle
@@ -113,6 +117,7 @@ export default {
 
   methods: {
     init() {
+      console.log("审核页")
       this.course = this.$store.state.courseInfo;
       console.log(this.$store.state.courseInfo);
       console.log(this.course);
@@ -121,12 +126,15 @@ export default {
         url: "/information/getInformationById" + url,
         method: "get"
       }).then(response => {
-        console.log(response);
-        this.applicant = response.data.data;
+        if (response.data.errCode == 0) {
+          console.log(response);
+          this.applicant = response.data.data;
+        }
       });
     },
 
     handleSubmit() {
+      let that = this;
       let param = new FormData();
       param.append("feedback", this.feedback);
       param.append("result", this.result);
@@ -136,8 +144,12 @@ export default {
         method: "post",
         data: param
       }).then(response => {
-        console.log(response);
-        console.log("提交审核信息");
+        // if (response.data.errCode == 0) {
+          console.log(response);
+          console.log("提交审核信息");
+          that.$message.success("审核成功");
+          that.$store.commit("changeContent","reviewList");
+        // }
       });
     }
   }

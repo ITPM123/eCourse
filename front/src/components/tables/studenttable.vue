@@ -23,27 +23,22 @@ const columns = [
   {
     title: "学生学号",
     dataIndex: "code",
-    width: "15%"
+    width: "20%"
   },
   {
     title: "学生姓名",
     dataIndex: "realName",
-    width: "15%"
+    width: "20%"
   },
   {
     title: "学院",
     dataIndex: "school",
-    width: "15%"
-  },
-  {
-    title: "专业",
-    dataIndex: "major",
     width: "20%"
   },
   {
     title: "年级",
     dataIndex: "grade",
-    width: "10%"
+    width: "20%"
   },
   {
     title: "选择操作",
@@ -79,15 +74,20 @@ export default {
     onDelete(record, key) {
       const data = [...this.data];
       this.data = data.filter(item => item.key !== key);
-
+      let that = this;
       let url = "?personId=" + record.personId.toString();
-      console.log(record.personId.toString());
-      console.log("sad");
+      // console.log(record.personId.toString());
       axios({
-        url: "/acdemicDean/removeAcdemicDean" + url,
+        url: "/student/removeStudent" + url,
         method: "get"
       }).then(response => {
-        console.log(response);
+        if (response.data.errCode == 0) {
+          console.log(response);
+          that.$message.success("删除学生成功");
+          that.init();
+        } else {
+          console.log("删除学生失败");
+        }
       });
     }
   }

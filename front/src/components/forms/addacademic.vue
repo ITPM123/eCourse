@@ -6,7 +6,7 @@ const Demo = {
   methods: {
     handleSubmit(e) {
       let param = new FormData();
-
+      let that =this
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -18,14 +18,14 @@ const Demo = {
         param.append("password", 123456);
         param.append("role", 0);
         param.append("sex", 1);
-        param.append("title", " ");
-        param.append("nickName", " ");
-        param.append("major", " ");
-        param.append("grade", " ");
-        param.append("class", " ");
-        param.append("contact", " ");
-        param.append("email", " ");
-        param.append("motto", " ");
+        param.append("title", "");
+        param.append("nickname","");
+        param.append("major", "");
+        param.append("grade", "");
+        param.append("class", "");
+        param.append("contact", "");
+        param.append("email", "");
+        param.append("motto", "");
       });
 
       axios({
@@ -33,7 +33,16 @@ const Demo = {
         method: "post",
         data: param
       }).then(response => {
-        console.log(response);
+        if(response.data.errCode==0){
+          console.log("添加教员")
+          console.log(response);
+          that.$message.success("添加成功");
+          this.$store.commit('changeContent','academicList')
+        }
+        else{
+          that.$message.error("添加教务员失败")
+        }
+
       });
     }
   },

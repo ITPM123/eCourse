@@ -19,13 +19,18 @@ const NormalLoginForm = {
             data: param
           }).then(response => {
             console.log(response);
-            let c = response.data.data;
-            // console.log(c);
-            // c.role = c.role + 1;
-            that.$store.commit("setUserInfo", c);
-
-            that.$store.state.isLogin = true;
-            that.$router.push("main");
+            if ((response.data.errCode == 0)) {
+              let c = response.data.data;
+              // console.log(c);
+              // c.role = c.role + 1;
+              that.$store.commit("setUserInfo", c);
+              that.$store.state.isLogin = true;
+              that.$router.push("main");
+            }
+            else{
+              console.log("用户不存在");
+              that.$message.error("用户不存在");
+            }
           });
         }
       });

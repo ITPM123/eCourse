@@ -7,8 +7,12 @@
         <a-tag v-else color="#E74C3C" :key="0">未审核</a-tag>
       </span>
       <span slot="action" slot-scope="record">
-        <a-button type="primary" v-if="record.marked" @click="showModal">查看</a-button>
+        <a-button type="primary" v-if="record.marked" @click="()=>showModal(record)">查看</a-button>
         <a-button type="primary" v-else @click="showModal1">审核</a-button>
+        <a-button
+          type="primary"
+          :href="'/api/download/StudentHomeworkAttachment/'+record.attachment"
+        >下载</a-button>
 
         <a-modal
           title="审核学生作业"
@@ -33,7 +37,7 @@
           cancelText="关闭"
         >
           <p>分数：{{score1}}</p>
-          <p>评语：{{command}}</p>
+          <p>评语：{{comment1}}</p>
         </a-modal>
       </span>
     </a-table>
@@ -88,15 +92,16 @@ export default {
       data: [],
       columns,
 
-      score: "",
-      comment: "",
+      score: null,
+      comment: null,
 
       ModalText: "Content of the modal",
       visible1: false,
       visible2: false,
       confirmLoading: false,
-        score1: 100,
-        command: "认真"
+
+      score1: null,
+      comment1: null
     };
   },
   mounted() {
@@ -120,10 +125,30 @@ export default {
       });
     },
 
-    showModal() {
+    /**查看学生分数 */
+    showModal(record) {
+      console.log("查看分数");
+      console.log(record.attachment);
       this.visible2 = true;
+      console.log(record.homework.homwwork_id);
+      let param = new FormData();
+      param.append("homework_id", record.homework.homwwork_id);
+      param.append("pageNumber", 0);
+      param.append("pageSize", 10);
+      axios({
+        url: "/homework/getStudentHomeworkList",
+        method: "post",
+        data: param
+      }).then(response => {
+        console.log(response.data);
+        if (response.data.length != 0) {
+          this.score1 = response.data[0].score;
+          this.comment1 = response.data[0].comment;
+        }
+      });
     },
 
+    /**审核学生作业 */
     showModal1() {
       this.visible1 = true;
     },
@@ -132,7 +157,7 @@ export default {
     handleOk(record) {
       console.log(record.id);
       let param = new FormData();
-      let that=this
+      let that = this;
       param.append("do_homework_id", record.id);
       param.append("score", this.score);
       param.append("comment", this.comment);
@@ -142,8 +167,8 @@ export default {
         data: param
       }).then(Response => {
         console.log(Response);
-         that.visible1 = false;
-         that.visible2 = false;
+        that.visible1 = false;
+        that.visible2 = false;
       });
     },
 

@@ -80,7 +80,6 @@ export default {
       param.append("title", this.titlename);
       param.append("content", this.content);
       param.append("attachment1", "");
-      param.append("personId", 1);
       axios({
         url: "/schoolAnnouncement/add",
         method: "post",

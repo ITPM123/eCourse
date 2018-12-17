@@ -8,7 +8,7 @@
         <a-popconfirm
           v-if="data.length&&(isAcademic||isTest)"
           title="确认删除"
-          @confirm="() => onDelete(record.key)"
+          @confirm="() => onDelete(record,record.key)"
           okText="确认"
           cancelText="取消"
         >
@@ -56,9 +56,24 @@ export default {
   },
 
   methods: {
-    onDelete(key) {
+    onDelete(record,key) {
       const data = [...this.data];
       this.data = data.filter(item => item.key !== key);
+
+      let that = this;
+      let url = "?schoolAnnouncementId=" + record.schoolAnnouncementId.toString();
+      axios({
+        url: "/schoolAnnouncement/delete" + url,
+        method: "get"
+      }).then(response => {
+        if (response.data.errCode == 0) {
+          console.log("删除教务公告");
+          that.$message.success("删除教务公告");
+          console.log(response);
+          that.init();
+        } else {
+        }
+      });
     },
 
     handleView(record) {
@@ -75,16 +90,17 @@ export default {
     init() {
       let that = this;
       let url = "?page=" + "0";
-
-      setTimeout(function() {
-        axios({
-          url: "/schoolAnnouncement/list" + url,
-          method: "get"
-        }).then(response => {
+      axios({
+        url: "/schoolAnnouncement/list" + url,
+        method: "get"
+      }).then(response => {
+        if (response.data.errCode == 0) {
           console.log(response);
           that.data = response.data.data.list;
-        });
-      }, 1000);
+        } else {
+          console.log("获取教务公告失败");
+        }
+      });
     }
   },
 

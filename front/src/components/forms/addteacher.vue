@@ -6,7 +6,7 @@ const Demo = {
   methods: {
     handleSubmit(e) {
       let param = new FormData();
-
+      let that = this;
       e.preventDefault();
       this.form.validateFields((err, values) => {
         if (!err) {
@@ -27,13 +27,19 @@ const Demo = {
         param.append("email", " ");
         param.append("motto", " ");
       });
-
       axios({
         url: "/teacher/create",
         method: "post",
         data: param
       }).then(response => {
-        console.log(response);
+        if (response.data.errCode == 0) {
+          console.log(response);
+          that.$message.success("添加教师成功");
+          that.$store.commit("changeContent", "teacherList");
+        } else {
+          that.$message.error("添加教师失败");
+          console.log("添加教师失败");
+        }
       });
     }
   },
