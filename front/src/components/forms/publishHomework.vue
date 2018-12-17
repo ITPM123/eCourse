@@ -168,8 +168,8 @@ export default {
       });
       this.uploading = true;
 
-      // param.append("course_id",this.$store.state.courseInfo.course_id);
-      param.append("course_id", 14);
+      param.append("course_id",this.$store.state.courseInfo.course_id);
+      // param.append("course_id", 14);
 
       param.append("homework_title", this.homeworkTitle);
       param.append("description", this.homeworkContent);

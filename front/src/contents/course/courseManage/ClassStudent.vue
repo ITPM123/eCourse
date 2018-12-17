@@ -2,19 +2,19 @@
   <div>
     <div style="font-weight:bold;font-size:2em;margin-bottom:-20px;margin-left:10px;">班级学生列表</div>
     <a-divider/>
-    <studenttable/>
+    <classstudenttable/>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import studenttable from "@/components/tables/classstudenttable.vue";
+import classstudenttable from "@/components/tables/classstudenttable.vue";
 import axios from "axios";
 
 export default {
-  name: "classStudent",
+  name: "classStudent1",
   components: {
-    studenttable
+    classstudenttable
   }
   
 };

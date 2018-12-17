@@ -4,9 +4,9 @@
       <a-tab-pane tab="全部作业" key="1">
         <homeworkList/>
       </a-tab-pane>
-      <a-tab-pane tab="已截止" key="2">
+      <!-- <a-tab-pane tab="已截止" key="2">
         <particalHomeworkList/>
-      </a-tab-pane>
+      </a-tab-pane> -->
     </a-tabs>
   </div>
 </template>
@@ -20,7 +20,11 @@ export default {
   data: function() {
     return {};
   },
-  methods: {},
+  methods: {
+    callback(){
+      
+    }
+  },
   components: {
     homeworkList,
     particalHomeworkList

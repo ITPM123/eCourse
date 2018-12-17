@@ -15,8 +15,8 @@
           />
         </a-form-item>
 
-        <a-upload
-          action="//jsonplaceholder.typicode.com/posts/"
+        <!-- <a-upload
+          action="/api/schoolAnnouncement/uploadFile"
           :multiple="true"
           :fileList="fileList"
           @change="handleChange"
@@ -24,7 +24,7 @@
           <a-button>
             <a-icon type="upload"/>上传附件
           </a-button>
-        </a-upload>
+        </a-upload> -->
 
         <a-form-item/>
 
@@ -46,7 +46,7 @@ export default {
       formLayout: "horizontal",
       titlename: " ",
       content: " ",
-      fileList: [{}]
+      fileList: []
     };
   },
   methods: {
@@ -56,21 +56,21 @@ export default {
 
     /**处理上传 */
     handleChange(info) {
-      // let fileList = info.fileList;
-      // fileList = fileList.slice(-2);
-      // fileList = fileList.map((file) => {
-      //   if (file.response) {
-      //     file.url = file.response.url;
-      //   }
-      //   return file;
-      // });
-      // fileList = fileList.filter((file) => {
-      //   if (file.response) {
-      //     return file.response.status === 'success';
-      //   }
-      //   return true;
-      // });
-      // this.fileList = fileList
+      let fileList = info.fileList;
+      fileList = fileList.slice(-2);
+      fileList = fileList.map((file) => {
+        if (file.response) {
+          file.url = file.response.url;
+        }
+        return file;
+      });
+      fileList = fileList.filter((file) => {
+        if (file.response) {
+          return file.response.status === 'success';
+        }
+        return true;
+      });
+      this.fileList = fileList
     },
 
     /**处理提交 */

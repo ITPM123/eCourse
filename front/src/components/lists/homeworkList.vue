@@ -57,10 +57,7 @@ export default {
     /*获取作业列表*/
     init() {
       let param = new FormData();
-      // param.append("course_id",this.$store.state.courseInfo.course_id);
-      param.append("course_id", 14);
-
-      // param.append("course_id",this.pageNumber);
+      param.append("course_id",this.$store.state.courseInfo.course_id);
       param.append("pageNumber", 0);
       param.append("pageSize", 10);
       axios({

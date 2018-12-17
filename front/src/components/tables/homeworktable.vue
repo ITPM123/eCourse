@@ -95,14 +95,13 @@ export default {
 
   methods: {
     view(record) {
-      console.log(record.homwwork_id);
+      console.log(record.content.homwwork_id);
     },
 
     /**学生获取作业列表 */
     init() {
       let param = new FormData();
       param.append("course_id",this.$store.state.courseInfo.course_id);
-      // param.append("course_id",this.pageNumber);
       param.append("pageNumber", 0);
       param.append("pageSize", 10);
       axios({
@@ -182,9 +181,10 @@ export default {
     handleUpload(record) {
       console.log("上传文件");
       let param = new FormData();
-      param.append("homwwork_id", record.homwwork_id);
-      const { fileList } = record.fileList;
-      console.log(typeof record.fileList);
+      let that =this
+      param.append("homework_id", (record.content.homwwork_id).toString());
+      // const { fileList } = record.fileList;
+      // console.log(typeof record.fileList);
       param.append("attachment", record.fileList[0]);
       record.uploading = true;
       axios({
@@ -197,11 +197,11 @@ export default {
           console.log("aa");
           record.fileList = [];
           record.uploading = false;
-          // $message.success('提交成功');
+          that.$message.success('提交成功');
         })
         .catch(() => {
           record.uploading = false;
-          // this.$message.error('上传失败');
+          that.$message.error('上传失败');
         });
     }
   }

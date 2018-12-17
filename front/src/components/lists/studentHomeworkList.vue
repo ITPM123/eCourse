@@ -94,9 +94,9 @@ export default {
       ModalText: "Content of the modal",
       visible1: false,
       visible2: false,
-      confirmLoading: false
-      //   score1: 100,
-      //   command: "认真"
+      confirmLoading: false,
+        score1: 100,
+        command: "认真"
     };
   },
   mounted() {
@@ -132,6 +132,7 @@ export default {
     handleOk(record) {
       console.log(record.id);
       let param = new FormData();
+      let that=this
       param.append("do_homework_id", record.id);
       param.append("score", this.score);
       param.append("comment", this.comment);
@@ -141,6 +142,8 @@ export default {
         data: param
       }).then(Response => {
         console.log(Response);
+         that.visible1 = false;
+         that.visible2 = false;
       });
     },
 

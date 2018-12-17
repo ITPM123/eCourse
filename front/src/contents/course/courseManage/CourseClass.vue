@@ -1,6 +1,6 @@
 <template>
   <div>
-    <index/>
+    <!-- <index/> -->
     <div style="font-weight:bold;font-size:2em;margin-bottom:-20px;margin-left:10px;">课程班级</div>
     <a-divider/>
     <studenttable/>
@@ -13,8 +13,9 @@ import index from "@/components/Carousel/index.vue";
 import studenttable from "@/components/tables/classstudenttable.vue";
 
 export default {
-  name: "classStudent",
+  name: "courseClass",
   components: {
+    // index,
     studenttable
   },
   methods: {}

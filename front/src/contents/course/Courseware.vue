@@ -87,7 +87,7 @@ export default {
 
   methods: {
     handleRemove(file) {
-      console.log(zzz);
+      // console.log(zzz);
       const index = this.fileList.indexOf(file);
       const newFileList = this.fileList.slice();
       newFileList.splice(index, 1);

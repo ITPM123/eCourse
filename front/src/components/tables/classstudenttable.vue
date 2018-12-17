@@ -69,6 +69,7 @@ export default {
   mounted() {
     this.init();
   },
+
   data() {
     return {
       data: [],
@@ -82,8 +83,9 @@ export default {
 
   methods: {
     init() {
-      // let url="?courseId="+this.$store.state.courseInfo.courseId
-      let url = "?courseId=" + 16;
+      // console.log("课程id"+this.$store.state.courseInfo.course_id)
+      let url="?courseId="+this.$store.state.courseInfo.course_id
+      // let url = "?courseId=" + 16;
       axios({
         url: "/course/listStudent" + url,
         method: "get"
@@ -118,7 +120,7 @@ export default {
       this.visible = false;
       let param = new FormData();
       param.append("code", this.code);
-      param.append("courseId",this.$store.state.courseInfo.courseId);
+      param.append("courseId",this.$store.state.courseInfo.course_id);
       // param.append("courseId", 16);
       axios({
         url: "/course/addStudent",
