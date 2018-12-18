@@ -9,7 +9,7 @@
       <a :href="'/api/download/attachment/'+announcement.attachment2">{{announcement.fileName2}}</a>
       <br>
       <a :href="'/api/download/attachment/'+announcement.attachment3">{{announcement.fileName3}}</a>
-      <br> -->
+      <br>-->
     </a-card>
   </div>
 </template>

@@ -129,6 +129,7 @@
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
+
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
         <a-icon
@@ -153,7 +154,7 @@
         </div>-->
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '24px 16px', padding: '2px', background: '#fff', minHeight: '280px' }"
+        :style="{ margin: '24px 16px', padding: '2px', background: '#fff', minHeight: '1000px' }"
       >
         <component v-bind:is="getContent"/>
       </a-layout-content>
@@ -188,16 +189,16 @@ import dataHomework from "../contents/course/teacherhomework/HomeworkData.vue";
 import homeworkReviewer from "../contents/course/teacherhomework/HomeworkReview.vue";
 import studentHomework from "../contents/course/StudentHomework.vue";
 import courseClass from "../contents/course/courseManage/CourseClass.vue";
-
 import classStudent from "../contents/course/courseManage/ClassStudent.vue";
 // import classStudent1 from "../contents/course/courseManage/ClassStudent.vue";
-
 import homeworkPublisher from "../contents/course/teacherhomework/publishHomework.vue";
 import publishCourseAnn from "../contents/course/publishCourseAnn.vue";
 import annConent from "../contents/schoolannouncement/announcementContent.vue";
 import AnnouncementEdit from "../contents/schoolannouncement/editAnnouncement.vue";
 import readCourseAnn from "../contents/course/readCourseAnnouncement.vue";
+import reviewList1 from "@/components/review/ReviewList.vue";
 import axios from "axios";
+
 //import courseAnnounceList from "../contents/course/courseannouncement/courseAnnouncementList.vue"
 /*key与component name的映射 */
 
@@ -236,7 +237,8 @@ var map = {
   教务公告详情: "annConent",
   课程班级: "classStudent",
   编辑教务公告: "AnnouncementEdit",
-  查看课程公告: "readCourseAnn"
+  查看课程公告: "readCourseAnn",
+  查看已审核课程: "reviewList1"
 };
 
 export default {
@@ -247,6 +249,9 @@ export default {
     home,
     setProfile,
     reviewList,
+
+    // reviewList1,
+
     reviewDetail,
     reviewResulter,
     academicList,
@@ -276,7 +281,8 @@ export default {
     publishCourseAnn,
     annConent,
     AnnouncementEdit,
-    readCourseAnn
+    readCourseAnn,
+    reviewList1
   },
   data: function() {
     return {

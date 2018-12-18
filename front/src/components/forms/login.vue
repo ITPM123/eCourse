@@ -19,15 +19,14 @@ const NormalLoginForm = {
             data: param
           }).then(response => {
             console.log(response);
-            if ((response.data.errCode == 0)) {
+            if (response.data.errCode == 0) {
               let c = response.data.data;
               // console.log(c);
               // c.role = c.role + 1;
               that.$store.commit("setUserInfo", c);
               that.$store.state.isLogin = true;
               that.$router.push("main");
-            }
-            else{
+            } else {
               console.log("用户不存在");
               that.$message.error("用户不存在");
             }
@@ -76,9 +75,7 @@ const NormalLoginForm = {
               valuePropName: "checked",
               initialValue: true
             })(<a-checkbox>记住我</a-checkbox>)}
-            <a class="login-form-forgot" href="">
-              忘记密码？
-            </a>
+            <a class="login-form-forgot" href="" />
             <a-button
               type="primary"
               htmlType="submit"

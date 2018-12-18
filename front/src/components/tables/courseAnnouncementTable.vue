@@ -61,15 +61,14 @@ export default {
     onDelete(key) {
       const data = [...this.data];
       this.data = data.filter(item => item.courseAnnouncementId !== key);
-      let that =this
-      let url="?courseAnnouncementId="+key
+      let that = this;
+      let url = "?courseAnnouncementId=" + key;
       axios({
-        url: "/courseAnnouncement/delete"+url,
-        methods: "get",
-      })
-      .then(response=>{
-        that.init()
-      })
+        url: "/courseAnnouncement/delete" + url,
+        methods: "get"
+      }).then(response => {
+        that.init();
+      });
     },
 
     handleView(record) {

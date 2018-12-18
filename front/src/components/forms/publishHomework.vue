@@ -162,7 +162,7 @@ export default {
       param.append("description", this.homeworkContent);
 
       // param.append("deadline",this.homeDeadline);
-      param.append("deadline", "2018-12-16");
+      param.append("deadline", "2018-12-20");
       // //
       // param.append("attachment","");
 

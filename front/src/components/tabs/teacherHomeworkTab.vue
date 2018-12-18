@@ -6,7 +6,7 @@
       </a-tab-pane>
       <!-- <a-tab-pane tab="已截止" key="2">
         <particalHomeworkList/>
-      </a-tab-pane> -->
+      </a-tab-pane>-->
     </a-tabs>
   </div>
 </template>
@@ -21,9 +21,7 @@ export default {
     return {};
   },
   methods: {
-    callback(){
-      
-    }
+    callback() {}
   },
   components: {
     homeworkList,

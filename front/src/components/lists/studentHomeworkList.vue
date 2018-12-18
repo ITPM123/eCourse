@@ -9,6 +9,7 @@
       <span slot="action" slot-scope="record">
         <a-button type="primary" v-if="record.marked" @click="()=>showModal(record)">查看</a-button>
         <a-button type="primary" v-else @click="showModal1">审核</a-button>
+        <a-divider type="vertical"/>
         <a-button
           type="primary"
           :href="'/api/download/StudentHomeworkAttachment/'+record.attachment"
@@ -169,6 +170,7 @@ export default {
         console.log(Response);
         that.visible1 = false;
         that.visible2 = false;
+        that.init();
       });
     },
 

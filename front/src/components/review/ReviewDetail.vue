@@ -71,7 +71,7 @@
 <script>
 var applicant = {
   //申请人信息
-  name: "张三",
+  name: "张三威威威威威威威威威威",
   id: "SCUT001",
   rank: "教授",
   institute: "软件学院",

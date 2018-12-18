@@ -74,8 +74,8 @@ const Demo = {
               {
                 type: "string",
                 pattern: new RegExp(/^[1-9]\d*$/, "g"),
-                len: 12,
-                message: "请输入12位数字学号"
+                len: 6,
+                message: "请输入6位数字"
               }
             ]
           })(<a-input v-model="code" placeholder="请输入工号" />)}
@@ -88,6 +88,10 @@ const Demo = {
             <a-select v-model="school" placeholder="请选择学院">
               <a-select-option value="软件学院">软件学院</a-select-option>
               <a-select-option value="艺术学院">艺术学院</a-select-option>
+              <a-select-option value="建筑学院">建筑学院</a-select-option>
+              <a-select-option value="计算机学院">计算机学院</a-select-option>
+              <a-select-option value="数学学院">数学学院</a-select-option>
+              <a-select-option value="电力学院">电力学院</a-select-option>
             </a-select>
           )}
         </a-form-item>
@@ -99,6 +103,8 @@ const Demo = {
             <a-select v-model="title" placeholder="请选择教师职称">
               <a-select-option value="教授">教授</a-select-option>
               <a-select-option value="副教授">副教授</a-select-option>
+              <a-select-option value="讲师">讲师</a-select-option>
+              <a-select-option value="助教">助教</a-select-option>
             </a-select>
           )}
         </a-form-item>

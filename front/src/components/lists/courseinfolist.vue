@@ -1,20 +1,20 @@
 <template>
   <div>
     <a-row :gutter="0">
-      <a-col :span="8">
-        <a-card title="课程名称" :bordered="false">
+      <a-col :span="4">
+        <a-card title="课程名称" :bordered="false" class="card">
           <p>{{courseInfo.name}}</p>
         </a-card>
         <!-- <a-card title="课程概述" :bordered=false>
           <p>{{courseInfo.description}}</p>
         </a-card>-->
-        <a-card title="课程概述" :bordered="false">
+        <a-card title="课程概述" :bordered="false" class="card">
           <p>{{courseInfo.overview}}</p>
         </a-card>
-        <a-card title="课程大纲" :bordered="false">
+        <a-card title="课程大纲" :bordered="false"  class="card">
           <p>{{courseInfo.outline}}</p>
         </a-card>
-        <a-card title="授课目标" :bordered="false">
+        <a-card title="授课目标" :bordered="false"  class="card">
           <p>{{courseInfo.teaching_goal}}</p>
         </a-card>
       </a-col>
@@ -35,11 +35,11 @@ export default {
   data: function() {
     return {
       courseInfo: {
-        name: " ",
-        description: " ",
-        overview: " ",
-        outline: " ",
-        teaching_goal: " "
+        name: "",
+        description: "",
+        overview: "",
+        outline: "",
+        teaching_goal: ""
       }
     };
   },
@@ -53,3 +53,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.card{
+  min-width: 1600px;
+}
+</style>

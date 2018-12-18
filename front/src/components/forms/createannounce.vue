@@ -24,8 +24,7 @@
           <a-button>
             <a-icon type="upload"/>上传附件
           </a-button>
-        </a-upload> -->
-
+        </a-upload>-->
         <a-form-item/>
 
         <a-form-item>
@@ -58,19 +57,19 @@ export default {
     handleChange(info) {
       let fileList = info.fileList;
       fileList = fileList.slice(-2);
-      fileList = fileList.map((file) => {
+      fileList = fileList.map(file => {
         if (file.response) {
           file.url = file.response.url;
         }
         return file;
       });
-      fileList = fileList.filter((file) => {
+      fileList = fileList.filter(file => {
         if (file.response) {
-          return file.response.status === 'success';
+          return file.response.status === "success";
         }
         return true;
       });
-      this.fileList = fileList
+      this.fileList = fileList;
     },
 
     /**处理提交 */

@@ -5,11 +5,11 @@
     <div>
       <center>
         <div :style="{fontSize:'40px'}">
-          <a-icon type="ellipsis" :style="{ margin: '15px 0px 0px 0px'}"/>
+          <a-icon type="user" :style="{ margin: '15px 0px 0px 0px'}"/>
           {{person.realName}}
         </div>
         <div :style="{fontSize:'30px'}">
-          <a-icon type="user" :style="{ margin: '15px 0px 0px 0px'}"/>
+          <a-icon type="ellipsis" :style="{ margin: '15px 0px 0px 0px'}"/>
           {{person.nickname}}
         </div>
         <div :style="{fontSize:'30px'}">

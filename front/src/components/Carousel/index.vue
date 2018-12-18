@@ -1,16 +1,16 @@
 <template>
   <a-carousel autoplay>
     <div>
-      <h3>真正的才智是刚毅的志向。 —— 拿破仑</h3>
+      <h3 style="font-weight:bold;font-size:4em">惜时、专心、苦读是做学问的一个好方法</h3>
     </div>
     <div>
-      <h3>人的理想志向往往和他的能力成正比。 —— 约翰逊</h3>
+      <h3 style="font-weight:bold;font-size:4em">人的理想志向往往和他的能力成正比</h3>
     </div>
     <div>
-      <h3>志向和热爱是伟大行为的双翼。 —— 歌德</h3>
+      <h3 style="font-weight:bold;font-size:4em">书山有路勤为径，学海无崖苦作舟</h3>
     </div>
     <div>
-      <h3>人生贵知心，定交无暮早。 —— 袁中道</h3>
+      <h3 style="font-weight:bold;font-size:4em">师傅领进门，学艺在自身</h3>
     </div>
   </a-carousel>
 </template>

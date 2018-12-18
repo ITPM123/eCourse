@@ -23,7 +23,7 @@ export default {
     return {
       announcement: {
         title: "",
-        content: "",
+        content: ""
       }
     };
   },

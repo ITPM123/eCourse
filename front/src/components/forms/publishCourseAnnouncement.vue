@@ -41,7 +41,8 @@ export default {
 
     /**处理提交 */
     handleSubmit: function() {
-      this.$store.commit("changeContent", "courseAnnounceList");
+      
+      let that=this
       let param = new FormData();
       param.append("courseId", this.$store.state.courseInfo.course_id);
       param.append("title", this.titleName);
@@ -50,7 +51,11 @@ export default {
         url: "/courseAnnouncement/add",
         method: "post",
         data: param
-      });
+      })
+      .then(response=>{
+        that.$store.commit("changeContent", "courseAnnounceList")
+        // that.$store.commit('changeContent',"")
+      })
     }
   }
 };

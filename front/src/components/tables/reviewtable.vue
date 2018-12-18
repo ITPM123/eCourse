@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a-button @click="handleView">已审核课程</a-button>
     <a-table :columns="columns" :dataSource="data">
       <span slot="action" slot-scope="record">
         <a v-if="record.hasReviewed" href="javascript:;" @click="clickHandle1">查看</a>
@@ -77,6 +78,12 @@ export default {
       });
       // }, 1000);
     },
+
+    /** 获取已审核课程列表*/
+    handleView(){
+      this.$store.commit("changeContent","reviewList1")
+    },
+
 
     /**查看审核结果 */
     clickHandle1() {

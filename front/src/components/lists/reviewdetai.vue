@@ -15,15 +15,15 @@
 
     <a-card v-model="course" title="课程信息" class="card">
       <div style="min-width:20rem;min-height:3rem">课程名称：{{course.course.name}}</div>
-      <div class="block">
+      <div class="block1">
         <div style="min-width:5rem">课程概述：</div>
         <div>{{course.course.overview}}</div>
       </div>
-      <div class="block">
+      <div class="block1">
         <div style="min-width:5rem">课程大纲：</div>
         <div>{{course.course.outline}}</div>
       </div>
-      <div class="block">
+      <div class="block1">
         <div style="min-width:5rem">授课对象：</div>
         <div>{{course.course.teaching_goal}}</div>
       </div>
@@ -60,15 +60,20 @@
 
 <style>
 .card {
-  margin: 20px 20px;
+  /* margin: 20px 20px; */
+  min-width: 60rem;
 }
 .part {
-  min-width: 15rem;
+  min-width: 60rem;
 }
 .block {
   display: flex;
+  min-width: 120rem;
   flex-direction: row;
-  margin-bottom: 2rem;
+  margin-bottom: 10rem;
+}
+.block1{
+  min-height: 10rem;
 }
 </style>
 

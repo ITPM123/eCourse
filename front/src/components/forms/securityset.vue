@@ -46,6 +46,7 @@ export default {
 
   methods: {
     handleSubmit() {
+      let that = this;
       let param = new FormData();
       param.append("oldPassword", this.old_Password);
       param.append("newPassword", this.new_Password);
@@ -54,8 +55,14 @@ export default {
         method: "post",
         data: param
       }).then(response => {
-        console.log(response);
-        console.log("更改密码");
+        if (response.data.errCode == 0) {
+          console.log(response);
+          console.log("更改密码");
+          that.$message.success("修改成功");
+          that.$store.commit("changeContent", "home");
+        } else {
+          that.$message.error("密码错误，修改失败");
+        }
       });
     }
   },

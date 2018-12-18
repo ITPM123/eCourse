@@ -51,6 +51,7 @@
 .part {
   display: flex;
   flex-direction: row;
+  height: 6rem;
   margin-right: 2rem;
   margin-bottom: 2rem;
 }
@@ -58,7 +59,7 @@
 .block {
   display: flex;
   flex-direction: row;
-  height: 2rem;
+  height: 6rem;
   margin-bottom: 2rem;
 }
 

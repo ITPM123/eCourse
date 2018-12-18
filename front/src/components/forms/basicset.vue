@@ -47,27 +47,25 @@ export default {
   data() {
     return {
       formLayout: "horizontal",
-      userInfo:{
-        nickname:null,
+      userInfo: {
+        nickname: null,
         motto: null,
         email: null,
         contact: null
       }
     };
   },
-  mounted(){
+  mounted() {
     this.init();
-    console.log(this.$store.state.userInfo)
-    this.userInfo=this.$store.state.userInfo
+    console.log(this.$store.state.userInfo);
+    this.userInfo = this.$store.state.userInfo;
   },
 
   methods: {
     /**获取用户个人信息 */
-    init(){
-
-
-    },
+    init() {},
     handleSubmit() {
+      let that = this;
       let param = new FormData();
       let url =
         "nickname=" +
@@ -85,6 +83,8 @@ export default {
       }).then(response => {
         console.log(response);
         console.log("更改个人信息");
+        that.$message.success("修改成功");
+        that.$store.commit("changeContent", "home");
       });
     }
   },

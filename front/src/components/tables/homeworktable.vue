@@ -88,8 +88,8 @@ export default {
         authorization: "authorization-text"
       },
 
-      score:null,
-      comment:null
+      score: null,
+      comment: null
     };
   },
 
@@ -121,23 +121,20 @@ export default {
         }
         //this.data=response.data;
       });
-
     },
 
     /** 确定操作*/
     handleOk() {
-      this.score=null,
-      this.comment=null,
-      this.ModalText = "The modal will be closed after two seconds";
+      (this.score = null),
+        (this.comment = null),
+        (this.ModalText = "The modal will be closed after two seconds");
       this.visible = false;
       // this.confirmLoading = false;
     },
 
     /**取消操作 */
     handleCancel() {
-      this.score=null,
-      this.comment=null,
-      this.visible = false;
+      (this.score = null), (this.comment = null), (this.visible = false);
     },
 
     /**查看分数 */

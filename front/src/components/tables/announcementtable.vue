@@ -56,12 +56,13 @@ export default {
   },
 
   methods: {
-    onDelete(record,key) {
+    onDelete(record, key) {
       const data = [...this.data];
       this.data = data.filter(item => item.key !== key);
 
       let that = this;
-      let url = "?schoolAnnouncementId=" + record.schoolAnnouncementId.toString();
+      let url =
+        "?schoolAnnouncementId=" + record.schoolAnnouncementId.toString();
       axios({
         url: "/schoolAnnouncement/delete" + url,
         method: "get"
