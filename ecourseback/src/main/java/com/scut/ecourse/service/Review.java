@@ -98,7 +98,10 @@ public class Review {
         List<CourseReview>reviews=pages.getContent();
 
         for(int i=0;i<reviews.size();i++){
-            result.add(reviews.get(i).getCourse());
+            JSONObject temp=new JSONObject();
+            temp.put("course_info",reviews.get(i).getCourse());
+            temp.put("review_id",reviews.get(i).getId());
+            result.add(temp);
         }
 
         return result;
